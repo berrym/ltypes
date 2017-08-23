@@ -24,7 +24,7 @@ struct linkedList {
 };
 typedef struct linkedList linkedList;
 
-void ll_create(linkedList *, size_t, freeFunction);
+linkedList *ll_create(size_t, freeFunction);
 void ll_delete(linkedList *);
 void ll_push(linkedList *, void *);
 void ll_append(linkedList *, void *);
@@ -39,6 +39,7 @@ size_t ll_length(linkedList *);
 void ll_reverse(linkedList *);
 void ll_swapNodeData(linkedList *, linkedListNode *, linkedListNode *);
 void ll_selectionSort(linkedList *, nodeComparator);
+linkedList *ll_split(linkedList *);
 
 // Doubly linked list
 struct dLinkedListNode {
@@ -57,7 +58,7 @@ struct dLinkedList {
 };
 typedef struct dLinkedList dLinkedList;
 
-void dll_create(dLinkedList *, size_t, freeFunction);
+dLinkedList *dll_create(size_t, freeFunction);
 void dll_delete(dLinkedList *);
 void dll_push(dLinkedList *, void *);
 void dll_append(dLinkedList *, void *);
@@ -73,5 +74,6 @@ size_t dll_length(dLinkedList *);
 void dll_reverse(dLinkedList *);
 void dll_swapNodeData(dLinkedList *, dLinkedListNode *, dLinkedListNode *);
 void dll_selectionSort(dLinkedList *, nodeComparator);
+dLinkedList *dll_split(dLinkedList *);
 
 #endif

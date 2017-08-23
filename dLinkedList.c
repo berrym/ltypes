@@ -15,13 +15,21 @@
  * dll_create:
  *      Initialize doubly linked list.
  */
-void dll_create(dLinkedList *l, size_t size, freeFunction fn)
+dLinkedList *dll_create(size_t size, freeFunction fn)
 {
+    dLinkedList *l = calloc(1, sizeof(dLinkedList));
+    if (!l) {
+        perror("Unable to allocate linkedList");
+        abort();
+    }
+
     // initialize list
     l->logicalLength = 0;
     l->elementSize = size;
     l->head = l->tail = NULL;
     l->freeFn = fn;
+
+    return l;
 }
 
 /**
@@ -46,6 +54,7 @@ void dll_delete(dLinkedList *l)
     }
 
     l->head = l->tail = NULL;   // reset list head/tail
+    free(l);
 }
 
 /**
@@ -370,4 +379,39 @@ void dll_selectionSort(dLinkedList *l, nodeComparator cmp)
         dll_swapNodeData(l, start, min);
         start = start->next;    // move start node
     }
+}
+
+/**
+ * dll_split:
+ *  Split a linked list into two halves.  If there is an odd number
+ *  of node's in the original list it goes into the first half, the
+ *  second half of the list is initialized and returned.
+ */
+dLinkedList *dll_split(dLinkedList *a)
+{
+    if (a->logicalLength == 1)
+        return NULL;
+
+    // split the list in two
+    dLinkedListNode *fast = a->head, *slow = a->head;
+    while (fast->next && fast->next->next) {
+        fast = fast->next->next;
+        slow = slow->next;
+        a->logicalLength--;
+    }
+
+    // create and initialize a new list with the second half of the original
+    dLinkedList *b = calloc(1, sizeof(dLinkedList));
+    b->elementSize = a->elementSize;
+    b->head = slow->next;
+    slow->next = NULL;
+    size_t i;
+    dLinkedListNode *it = b->head;
+    for (i = 0; it; i++) {
+        b->tail = it;
+        it = it->next;
+    }
+    b->logicalLength = i;
+
+    return b;                   // return the second half of the list
 }

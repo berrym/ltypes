@@ -15,13 +15,22 @@
  * ll_create:
  *      Initialize singly linked list.
  */
-void ll_create(linkedList *l, size_t size, freeFunction fn)
+linkedList *ll_create(size_t size, freeFunction fn)
 {
+    // alloc list
+    linkedList *l = calloc(1, sizeof(linkedList));
+    if (!l) {
+        perror("Unable to allocate linkedList");
+        abort();
+    }
+
     // initialize list
     l->logicalLength = 0;
     l->elementSize = size;
     l->head = l->tail = NULL;
     l->freeFn = fn;
+
+    return l;
 }
 
 /**
@@ -46,6 +55,7 @@ void ll_delete(linkedList *l)
     }
 
     l->head = l->tail = NULL;   // reset list's head/tail
+    free(l);
 }
 
 /**
@@ -325,4 +335,39 @@ void ll_selectionSort(linkedList *l, nodeComparator cmp)
         ll_swapNodeData(l, start, min);
         start = start->next;    // move start node
     }
+}
+
+/**
+ * ll_split:
+ *  Split a linked list into two halves.  If there is an odd number
+ *  of node's in the original list it goes into the first half, the
+ *  second half of the list is initialized and returned.
+ */
+linkedList *ll_split(linkedList *a)
+{
+    if (a->logicalLength == 1)
+        return NULL;
+
+    // split the list in two
+    linkedListNode *fast = a->head, *slow = a->head;
+    while (fast->next && fast->next->next) {
+        fast = fast->next->next;
+        slow = slow->next;
+        a->logicalLength--;     // decrease original list length
+    }
+
+    // create and initialize a new list with the second half of the original
+    linkedList *b = calloc(1, sizeof(linkedList));
+    b->elementSize = a->elementSize;
+    b->head = slow->next;
+    slow->next = NULL;
+    size_t i;
+    linkedListNode *it = b->head;
+    for (i = 0; it; i++) {
+        b->tail = it;
+        it = it->next;
+    }
+    b->logicalLength = i;
+
+    return b;                   // return the second half of the list
 }
