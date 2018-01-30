@@ -45,6 +45,23 @@ void intLinkedList()
     len = ll_length(l);
     printf("Done...\n\n");
 
+    printf("Search for value 7 in list...");
+    getchar();
+    bool result;
+    int data = 7;
+    result = ll_search(l, &data, compareInt);
+    if (result)
+        printf("Value 7 found.\n\n");
+    else
+        printf("Value 7 not found.\n\n");
+
+    data = 7;
+    printf("Delete value 7\n\n");
+    getchar();
+    ll_deleteNode(l, &data, compareInt);
+    ll_foreach(l, iterateIntList);
+    printf("Done\n\n");
+
     printf("Test 3: Iterate over list and print values found...");
     getchar();
     ll_foreach(l, iterateIntList);
@@ -224,7 +241,7 @@ void stringLinkedList()
     getchar();
     s = strdup("zero");
     ll_push(l, &s);
-    len = l->logicalLength;
+    len = ll_length(l);
     printf("Done...\n\n");
 
     printf("Test 3: Iterate over list and print values found...");

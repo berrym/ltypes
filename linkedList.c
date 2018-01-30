@@ -144,7 +144,7 @@ void ll_insertAfter(linkedList *l, linkedListNode *prev, void *el)
         abort();
     }
 
-    // allocate memory for the new node's data
+    // Allocate memory for the new node's data
     if (!(node->data = calloc(1, l->elementSize))) {
         perror("unable to allocate memory for node");
         abort();
@@ -155,6 +155,54 @@ void ll_insertAfter(linkedList *l, linkedListNode *prev, void *el)
     node->next = prev->next;
     prev->next = node;
     l->logicalLength++;         // increase list's logical length
+}
+
+/**
+ * ll_deleteNode:
+ *  Delete a node from a singly linked list containing value `data`.
+ */
+void ll_deleteNode(linkedList *l, void *data, nodeComparator cmp)
+{
+    assert(cmp);
+
+    linkedListNode **pp = &l->head; // point pp to address of list head
+    linkedListNode *entry = l->head;// point entry to contents of list head
+
+    // Traverse the list looking for the node to delete
+    while (entry) {
+        if (cmp(entry->data, data) == 0) { // compare entry data to data
+            if (l->freeFn)
+                l->freeFn((*pp)->data);    // use free function if it exists
+            free(*pp);                     // free node pointed to by pp
+            *pp = entry->next;             // point pp to next entry
+            l->logicalLength--;            // decrease list's length
+        }
+
+        // Move to the next list entry
+        pp = &entry->next;
+        entry = entry->next;
+    }
+}
+
+/**
+ * ll_search:
+ *  Search a singly linked list for a node containing `data`.
+ */
+bool ll_search(linkedList *l, void *data, nodeComparator cmp)
+{
+    assert(cmp);
+
+    linkedListNode *curr = l->head;
+
+    // Traverse the list looking for a node matching `data`.
+    while (curr) {
+        if (cmp(curr->data, data) == 0)
+            return true;
+
+        curr = curr->next;
+    }
+
+    return false;
 }
 
 /**

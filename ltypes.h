@@ -29,6 +29,8 @@ void ll_delete(linkedList *);
 void ll_push(linkedList *, void *);
 void ll_append(linkedList *, void *);
 void ll_insertAfter(linkedList *, linkedListNode *, void *);
+void ll_deleteNode(linkedList *, void *, nodeComparator);
+bool ll_search(linkedList *, void *, nodeComparator);
 void ll_foreach(linkedList *, listIterator);
 void ll_head(linkedList *, void *, bool);
 linkedListNode *ll_first(linkedList *);
