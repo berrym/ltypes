@@ -171,10 +171,7 @@ void ll_deleteNode(linkedList *l, void *data, nodeComparator cmp)
     // Traverse the list looking for the node to delete
     while (entry) {
         if (cmp(entry->data, data) == 0) { // compare entry data to data
-            if (l->freeFn)
-                l->freeFn((*pp)->data);    // use free function if it exists
-            free(*pp);                     // free node pointed to by pp
-            *pp = entry->next;             // point pp to next entry
+            *pp = entry->next;             // remove entry
             l->logicalLength--;            // decrease list's length
         }
 
