@@ -42,7 +42,6 @@ void intLinkedList()
     getchar();
     i = 0;
     ll_push(l, &i);
-    len = ll_length(l);
     printf("Done...\n\n");
 
     printf("Search for value 7 in list...");
