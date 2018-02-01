@@ -9,20 +9,18 @@ typedef bool (*listIterator)(void *);
 typedef int (*nodeComparator)(const void *, const void *);
 
 // Singly linked list
-struct linkedListNode {
+typedef struct linkedListNode {
     void *data;
     struct linkedListNode *next;
-};
-typedef struct linkedListNode linkedListNode;
+} linkedListNode;
 
-struct linkedList {
+typedef struct linkedList {
     size_t logicalLength;
     size_t elementSize;
     linkedListNode *head;
     linkedListNode *tail;
     freeFunction freeFn;
-};
-typedef struct linkedList linkedList;
+}  linkedList;
 
 linkedList *ll_create(size_t, freeFunction);
 void ll_delete(linkedList *);
@@ -44,21 +42,19 @@ void ll_selectionSort(linkedList *, nodeComparator);
 linkedList *ll_split(linkedList *);
 
 // Doubly linked list
-struct dLinkedListNode {
+typedef struct dLinkedListNode {
     void *data;
     struct dLinkedListNode *prev;
     struct dLinkedListNode *next;
-};
-typedef struct dLinkedListNode dLinkedListNode;
+}  dLinkedListNode;
 
-struct dLinkedList {
+typedef struct dLinkedList {
     size_t logicalLength;
     size_t elementSize;
     dLinkedListNode *head;
     dLinkedListNode *tail;
     freeFunction freeFn;
-};
-typedef struct dLinkedList dLinkedList;
+} dLinkedList;
 
 dLinkedList *dll_create(size_t, freeFunction);
 void dll_delete(dLinkedList *);
@@ -66,6 +62,8 @@ void dll_push(dLinkedList *, void *);
 void dll_append(dLinkedList *, void *);
 void dll_insertAfter(dLinkedList *, dLinkedListNode *, void *);
 void dll_insertBefore(dLinkedList *, dLinkedListNode *, void *);
+void dll_deleteNode(dLinkedList *, void *, nodeComparator);
+bool dll_search(dLinkedList *, void *, nodeComparator);
 void dll_foreach(dLinkedList *, listIterator);
 void dll_head(dLinkedList *, void *, bool);
 dLinkedListNode *dll_first(dLinkedList *);

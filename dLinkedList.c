@@ -203,7 +203,59 @@ void dll_insertBefore(dLinkedList *l, dLinkedListNode *next, void *el)
     node->prev->next = node;
     l->logicalLength++;         // increase list's logical length
 }
-    
+/**
+ * dll_deleteNode:
+ *  Delete a node from a singly linked list containing value `data`.
+ */
+void dll_deleteNode(dLinkedList *l, void *data, nodeComparator cmp)
+{
+    assert(cmp);
+
+    dLinkedListNode *entry = l->head; // point entry to contents of list head
+
+    // Traverse the list looking for the node to delete
+    while (entry) {
+        if (cmp(entry->data, data) == 0) { // compare entry data to data
+            if (entry == l->head)
+                entry = entry->next;
+            if (entry->next)
+                entry->next->prev = entry->prev;
+            if (entry->prev)
+                entry->prev->next = entry->next;
+            if (l->freeFn)
+                l->freeFn(entry->data);
+            free(entry->data);
+            free(entry);        // remove entry
+            l->logicalLength--; // decrease list's length
+            return;
+        }
+
+        // Move to the next list entry
+        entry = entry->next;
+    }
+}
+
+/**
+ * dll_search:
+ *  Search a singly linked list for a node containing `data`.
+ */
+bool dll_search(dLinkedList *l, void *data, nodeComparator cmp)
+{
+    assert(cmp);
+
+    dLinkedListNode *curr = l->head;
+
+    // Traverse the list looking for a node matching `data`.
+    while (curr) {
+        if (cmp(curr->data, data) == 0)
+            return true;
+
+        curr = curr->next;
+    }
+
+    return false;
+}
+
 /**
  * dll_foreach:
  *  Iterate over a doubly linked list and perform the tasks

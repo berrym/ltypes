@@ -127,13 +127,13 @@ void ll_append(linkedList *l, void *el)
  * ll_insertAfter:
  *  Insert a new node into a singly linked list after a given node.
  */
-void ll_insertAfter(linkedList *l, linkedListNode *prev, void *el)
+void ll_insertAfter(linkedList *l, linkedListNode *prev, void *data)
 {
     assert(prev);
 
     // Use append method if prev is list tail
     if (prev == l->tail) {
-        ll_append(l, el);
+        ll_append(l, data);
         return;
     }
 
@@ -149,7 +149,7 @@ void ll_insertAfter(linkedList *l, linkedListNode *prev, void *el)
         perror("unable to allocate memory for node");
         abort();
     }
-    memcpy(node->data, el, l->elementSize); // copy data
+    memcpy(node->data, data, l->elementSize); // copy data
 
     // Set new node links
     node->next = prev->next;
@@ -171,8 +171,13 @@ void ll_deleteNode(linkedList *l, void *data, nodeComparator cmp)
     // Traverse the list looking for the node to delete
     while (entry) {
         if (cmp(entry->data, data) == 0) { // compare entry data to data
+            if (l->freeFn)
+                l->freeFn((*pp)->data);
+
+            free((*pp)->data);
             *pp = entry->next;             // remove entry
             l->logicalLength--;            // decrease list's length
+            return;
         }
 
         // Move to the next list entry

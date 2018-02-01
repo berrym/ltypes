@@ -55,7 +55,6 @@ void intLinkedList()
     else
         printf("Value 7 not found.\n\n");
 
-    data = 7;
     printf("Delete value 7\n\n");
     getchar();
     ll_deleteNode(l, &data, compareInt);
@@ -140,6 +139,20 @@ void intDLinkedList()
     i = 0;
     dll_push(l, &i);
     printf("Done...\n\n");
+
+    bool result;
+    int data = 7;
+    result = dll_search(l, &data, compareInt);
+    if (result)
+        printf("Value 7 found.\n\n");
+    else
+        printf("Value 7 not found.\n\n");
+
+    printf("Delete value 7\n\n");
+    getchar();
+    dll_deleteNode(l, &data, compareInt);
+    dll_foreach(l, iterateIntList);
+    printf("Done\n\n");
 
     printf("Test 3: Insert a number (11) after the begining of the list...");
     getchar();
