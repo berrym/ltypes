@@ -87,11 +87,6 @@ void dll_push(dLinkedList *l, void *el)
     node->next = l->head;
     l->head ->prev = node;
     l->head = node;
-
-    // First node?
-    if (!l->tail)
-        l->tail = l->head;
-
     l->logicalLength++;         // increase list's logical length
 }
 
@@ -392,9 +387,9 @@ void dll_swapNodeData(dLinkedList *l, dLinkedListNode *a, dLinkedListNode *b)
     }
 
     // Swap data
-    memcpy(temp->data, a->data, l->elementSize);
-    memcpy(a->data, b->data, l->elementSize);
-    memcpy(b->data, temp->data, l->elementSize);
+    memmove(temp->data, a->data, l->elementSize);
+    memmove(a->data, b->data, l->elementSize);
+    memmove(b->data, temp->data, l->elementSize);
 
     // Free temporary node
     free(temp->data);

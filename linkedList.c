@@ -35,7 +35,7 @@ linkedList *ll_create(size_t size, freeFunction fn)
 
 /**
  * ll_delete:
- *      Remove each node from a singly linked lsit.
+ *      Remove each node from a singly linked list.
  */
 void ll_delete(linkedList *l)
 {
@@ -44,11 +44,10 @@ void ll_delete(linkedList *l)
         curr = l->head;
         l->head = curr->next;
 
-        // Use the list freeFunction if supplied
+        // Free node
         if (l->freeFn)
             l->freeFn(curr->data);
 
-        // Free node
         free(curr->data);
         free(curr);
         l->logicalLength--;     // decrease list's logical length
@@ -81,11 +80,6 @@ void ll_push(linkedList *l, void *el)
     memcpy(node->data, el, l->elementSize);
     node->next = l->head;
     l->head = node;             // reset list head
-
-    // First node?
-    if (!l->tail)
-        l->tail = l->head;
-
     l->logicalLength++;         // increase list's logical length
 }
 
@@ -163,6 +157,7 @@ void ll_insertAfter(linkedList *l, linkedListNode *prev, void *data)
  */
 void ll_deleteNode(linkedList *l, void *data, nodeComparator cmp)
 {
+    // Assert that a node compare function was provided
     assert(cmp);
 
     linkedListNode *entry = l->head, *prev = NULL;
@@ -387,9 +382,9 @@ void ll_swapNodeData(linkedList *l, linkedListNode *a, linkedListNode *b)
     }
 
     // Swap data
-    memcpy(tmp->data, a->data, l->elementSize);
-    memcpy(a->data, b->data, l->elementSize);
-    memcpy(b->data, tmp->data, l->elementSize);
+    memmove(tmp->data, a->data, l->elementSize);
+    memmove(a->data, b->data, l->elementSize);
+    memmove(b->data, tmp->data, l->elementSize);
 
     // Free temporary node
     free(tmp->data);
