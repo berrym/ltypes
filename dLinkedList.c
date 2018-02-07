@@ -17,19 +17,20 @@
  */
 dLinkedList *dll_create(size_t size, freeFunction fn)
 {
+    // Allocate list
     dLinkedList *l = calloc(1, sizeof(dLinkedList));
     if (!l) {
         perror("Unable to allocate linkedList");
         abort();
     }
 
-    // initialize list
+    // Initialize list
     l->logicalLength = 0;
     l->elementSize = size;
     l->head = l->tail = NULL;
     l->freeFn = fn;
 
-    return l;
+    return l;                   // return new list
 }
 
 /**
@@ -39,20 +40,22 @@ dLinkedList *dll_create(size_t size, freeFunction fn)
 void dll_delete(dLinkedList *l)
 {
     dLinkedListNode *curr;
+
+    // Traverse list and delete each node
     while (l->head) {
         curr = l->head;
         l->head = curr->next;
 
-        // use the list freeFunction if supplied
+        // Free node
         if (l->freeFn)
             l->freeFn(curr->data);
 
-        // free node
         free(curr->data);
         free(curr);
         l->logicalLength--;     // decrease list's logical length
     }
 
+    // Free list
     l->head = l->tail = NULL;   // reset list head/tail
     free(l);
 }
@@ -63,7 +66,7 @@ void dll_delete(dLinkedList *l)
  */
 void dll_push(dLinkedList *l, void *el)
 {
-    // allocate memory for new list node
+    // Allocate memory for new list node
     dLinkedListNode *node = calloc(1, sizeof(dLinkedListNode));
     if (!node) {
         perror("unable to allocate memory for node");
@@ -71,21 +74,21 @@ void dll_push(dLinkedList *l, void *el)
     }
     node->prev = NULL;
 
-    // allocate memory for new node's data
+    // Allocate memory for new node's data
     if ((node->data = calloc(1, l->elementSize)) == NULL) {
         perror("unable to allocate memory for node");
         abort();
     }
 
-    // copy new data to node
+    // Copy new data to node
     memcpy(node->data, el, l->elementSize);
 
-    // set node as new list head
+    // Set node as new list head
     node->next = l->head;
     l->head ->prev = node;
     l->head = node;
 
-    // first node?
+    // First node?
     if (!l->tail)
         l->tail = l->head;
 
@@ -98,30 +101,25 @@ void dll_push(dLinkedList *l, void *el)
  */
 void dll_append(dLinkedList *l, void *el)
 {
-    // allocate memory for a new node
+    // Allocate memory for a new node
     dLinkedListNode *node = calloc(1, sizeof(dLinkedListNode));
     if (!node) {
         perror("unable to allocate memory for node");
         abort();
     }
 
-    // allocate memory for the new node's data
+    // Allocate memory for the new node's data
     if ((node->data = calloc(1, l->elementSize)) == NULL) {
         perror("unable to allocate memory for node");
         abort();
     }
     memcpy(node->data, el, l->elementSize);
 
-    // reset node links
-    if (l->logicalLength == 0) {
+    // Reset node links
+    if (l->logicalLength == 0) { // empty list
         l->head = l->tail = node;
         l->head->prev = l->tail->next = NULL;
         l->tail->prev = l->head;
-    } else if (l->logicalLength == 1) {
-        l->head->next = node;
-        node->prev = l->head;
-        node->next = NULL;
-        l->tail = node;
     } else {
         l->tail->next = node;
         node->prev = l->tail;
@@ -153,7 +151,7 @@ void dll_insertAfter(dLinkedList *l, dLinkedListNode *prev, void *el)
         abort();
     }
 
-    // allocate memory for the new node's data
+    // Allocate memory for the new node's data
     if (!(node->data = calloc(1, l->elementSize))) {
         perror("unable to allocate memory for node");
         abort();
@@ -189,14 +187,14 @@ void dll_insertBefore(dLinkedList *l, dLinkedListNode *next, void *el)
         abort();
     }
 
-    // allocate memory for the new node's data
+    // Allocate memory for the new node's data
     if (!(node->data = calloc(1, l->elementSize))) {
         perror("unable to allocate memory for node");
         abort();
     }
     memcpy(node->data, el, l->elementSize); // copy data
 
-    // set new node links
+    // Set new node links
     node->prev = next->prev;
     next->prev = node;
     node->next = next;
@@ -209,6 +207,7 @@ void dll_insertBefore(dLinkedList *l, dLinkedListNode *next, void *el)
  */
 void dll_deleteNode(dLinkedList *l, void *data, nodeComparator cmp)
 {
+    // Assert that a node compare function was provided
     assert(cmp);
 
     dLinkedListNode *entry = l->head; // point entry to contents of list head
@@ -263,7 +262,7 @@ bool dll_search(dLinkedList *l, void *data, nodeComparator cmp)
  */
 void dll_foreach(dLinkedList *l, listIterator it)
 {
-    // assert that a list iterating function was passed
+    // Assert that a list iterating function was passed
     assert(it);
 
     bool result = true;
@@ -284,18 +283,18 @@ void dll_foreach(dLinkedList *l, listIterator it)
  */
 void dll_head(dLinkedList *l, void *el, bool remove)
 {
-    // assert that the list is initialized
+    // Assert that the list is initialized
     assert(l->head);
 
-    // copy the list's head to a new element
+    // Copy the list's head to a new element
     dLinkedListNode *node = l->head;
     memcpy(el, node->data, l->elementSize);
 
-    // remove/pop head node from list
+    // Remove/pop head node from list
     if (remove) {
         l->head = node->next;
 
-        // use freeFunction if it exists
+        // Use freeFunction if it exists
         if (l->freeFn)
             l->freeFn(node->data);
 
@@ -320,10 +319,10 @@ dLinkedListNode *dll_first(dLinkedList *l)
  */
 void dll_tail(dLinkedList *l, void *el)
 {
-    // assert that the list is initialized
+    // Assert that the list is initialized
     assert(l->tail);
 
-    // copy the list's tail to a new element
+    // Copy the list's tail to a new element
     dLinkedListNode *node = l->tail;
     memcpy(el, node->data, l->elementSize);
 }
@@ -361,10 +360,9 @@ size_t dll_length(dLinkedList *l)
  */
 void dll_reverse(dLinkedList *l)
 {
-    dLinkedListNode *curr = l->head;
-    dLinkedListNode *temp = NULL;
+    dLinkedListNode *curr = l->head, *temp = NULL;
 
-    // reset node links
+    // Reset node links
     while (curr) {
         temp = curr->prev;
         curr->prev = curr->next;
@@ -382,25 +380,25 @@ void dll_reverse(dLinkedList *l)
  */
 void dll_swapNodeData(dLinkedList *l, dLinkedListNode *a, dLinkedListNode *b)
 {
-    // allocate a temporary node
-    dLinkedListNode *tmp = calloc(1, sizeof(dLinkedListNode));
-    if (!tmp) {
+    // Allocate a temporary node
+    dLinkedListNode *temp = calloc(1, sizeof(dLinkedListNode));
+    if (!temp) {
         perror("Unable to allocate memory for a temporary node");
         abort();
     }
-    if (!(tmp->data = calloc(1, sizeof(l->elementSize)))) {
+    if (!(temp->data = calloc(1, sizeof(l->elementSize)))) {
         perror("Unable to allocate memory for temporary node data");
         abort();
     }
 
-    // swap data
-    memcpy(tmp->data, a->data, l->elementSize);
+    // Swap data
+    memcpy(temp->data, a->data, l->elementSize);
     memcpy(a->data, b->data, l->elementSize);
-    memcpy(b->data, tmp->data, l->elementSize);
+    memcpy(b->data, temp->data, l->elementSize);
 
-    // free temporary node
-    free(tmp->data);
-    free(tmp);
+    // Free temporary node
+    free(temp->data);
+    free(temp);
 }
 
 /**
@@ -412,22 +410,22 @@ void dll_selectionSort(dLinkedList *l, nodeComparator cmp)
 {
     assert(cmp);
 
-    // allocate three node pointers
+    // Allocate three node pointers
     dLinkedListNode *start = l->head; // start at list head
-    dLinkedListNode *curr, *min;
+    dLinkedListNode *curr = NULL, *min = NULL;
 
     while (start) {
         min = start;
         curr = start->next;
 
-        // find the lowest value from start in the list
+        // Find the lowest value from start in the list
         while (curr) {
             if ((cmp(min->data, curr->data) > 0))
                 min = curr;
             curr = curr->next;
         }
 
-        // swap start with lowest value found
+        // Swap start with lowest value found
         dll_swapNodeData(l, start, min);
         start = start->next;    // move start node
     }
@@ -441,10 +439,11 @@ void dll_selectionSort(dLinkedList *l, nodeComparator cmp)
  */
 dLinkedList *dll_split(dLinkedList *a)
 {
-    if (a->logicalLength == 1)
+    // Check that the list's length is greater than 1
+    if (a->logicalLength <= 1)
         return NULL;
 
-    // split the list in two
+    // Split the list in two
     dLinkedListNode *fast = a->head, *slow = a->head;
     while (fast->next && fast->next->next) {
         fast = fast->next->next;
@@ -452,7 +451,7 @@ dLinkedList *dll_split(dLinkedList *a)
         a->logicalLength--;
     }
 
-    // create and initialize a new list with the second half of the original
+    // Create and initialize a new list with the second half of the original
     dLinkedList *b = calloc(1, sizeof(dLinkedList));
     b->elementSize = a->elementSize;
     b->head = slow->next;

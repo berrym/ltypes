@@ -17,20 +17,20 @@
  */
 linkedList *ll_create(size_t size, freeFunction fn)
 {
-    // alloc list
+    // Allocate list
     linkedList *l = calloc(1, sizeof(linkedList));
     if (!l) {
         perror("Unable to allocate linkedList");
         abort();
     }
 
-    // initialize list
+    // Initialize list
     l->logicalLength = 0;
     l->elementSize = size;
     l->head = l->tail = NULL;
     l->freeFn = fn;
 
-    return l;
+    return l;                   // return new list
 }
 
 /**
@@ -44,11 +44,11 @@ void ll_delete(linkedList *l)
         curr = l->head;
         l->head = curr->next;
 
-        // use the list freeFunction if supplied
+        // Use the list freeFunction if supplied
         if (l->freeFn)
             l->freeFn(curr->data);
 
-        // free node
+        // Free node
         free(curr->data);
         free(curr);
         l->logicalLength--;     // decrease list's logical length
@@ -64,25 +64,25 @@ void ll_delete(linkedList *l)
  */
 void ll_push(linkedList *l, void *el)
 {
-    // allocate memory for a new list node
+    // Allocate memory for a new list node
     linkedListNode *node = calloc(1, sizeof(linkedListNode));
     if (!node) {
         perror("unable to allocate memory for node");
         abort();
     }
 
-    // allocate memory for node's new data
+    // Allocate memory for node's new data
     if ((node->data = calloc(1, l->elementSize)) == NULL) {
         perror("unable to allocate memory for node");
         abort();
     }
 
-    // copy new data to node
+    // Copy new data to node
     memcpy(node->data, el, l->elementSize);
     node->next = l->head;
     l->head = node;             // reset list head
 
-    // first node?
+    // First node?
     if (!l->tail)
         l->tail = l->head;
 
@@ -95,23 +95,23 @@ void ll_push(linkedList *l, void *el)
  */
 void ll_append(linkedList *l, void *el)
 {
-    // allocate memory for a new list node
+    // Allocate memory for a new list node
     linkedListNode *node = calloc(1, sizeof(linkedListNode));
     if (!node) {
         perror("unable to allocate memory for node");
         abort();
     }
 
-    // allocate memory for node's new data
+    // Allocate memory for node's new data
     if ((node->data = calloc(1, l->elementSize)) == NULL) {
         perror("unable to allocate memory for node");
         abort();
     }
 
-    // copy new data into node
+    // Copy new data into node
     memcpy(node->data, el, l->elementSize);
 
-    // reset head/tail links
+    // Reset head/tail links
     if (l->logicalLength == 0) {
         l->head = l->tail = node;
     } else {
@@ -165,25 +165,64 @@ void ll_deleteNode(linkedList *l, void *data, nodeComparator cmp)
 {
     assert(cmp);
 
-    linkedListNode **pp = &l->head; // point pp to address of list head
-    linkedListNode *entry = l->head;// point entry to contents of list head
+    linkedListNode *entry = l->head, *prev;
 
-    // Traverse the list looking for the node to delete
+    // Edge case where node to be deleted is the list's head
+    if (entry && cmp(entry->data, data) == 0) {
+        l->head = entry->next;
+
+        if (l->freeFn)
+            l->freeFn(entry->data);
+
+        free(entry->data);
+        free(entry);
+        l->logicalLength--;     // decrease list's length
+
+        return;
+    }
+
+    // Traverse the list looking for node to be deleted, if found remove it
     while (entry) {
-        if (cmp(entry->data, data) == 0) { // compare entry data to data
-            if (l->freeFn)
-                l->freeFn((*pp)->data);
+        if (cmp(entry->data, data) == 0) {
+            prev->next = entry->next;
 
-            free((*pp)->data);
-            *pp = entry->next;             // remove entry
-            l->logicalLength--;            // decrease list's length
+            if (l->freeFn)
+                l->freeFn(entry->data);
+
+            free(entry->data);
+            free(entry);
+            l->logicalLength--; // decrease list's length
+
             return;
         }
 
-        // Move to the next list entry
-        pp = &entry->next;
+        // Move to next node
+        prev = entry;
         entry = entry->next;
     }
+
+    // Elegant way to remove a node but doesn't work on all platforms
+
+    /* linkedListNode **pp = &l->head; // point pp to address of list head */
+    /* linkedListNode *entry = l->head;// point entry to data of list head */
+
+    /* // Traverse the list looking for the node to delete */
+    /* while (entry) { */
+    /*     if (cmp(entry->data, data) == 0) { // compare entry data to data */
+    /*         if (l->freeFn) */
+    /*             l->freeFn((*pp)->data); */
+
+    /*         free((*pp)->data); */
+    /*         free(*pp); */
+    /*         *pp = entry->next;             // remove entry */
+    /*         l->logicalLength--;            // decrease list's length */
+    /*         return; */
+    /*     } */
+
+    /*     // Move to the next list entry */
+    /*     pp = &entry->next; */
+    /*     entry = entry->next; */
+    /* } */
 }
 
 /**
@@ -214,7 +253,7 @@ bool ll_search(linkedList *l, void *data, nodeComparator cmp)
  */
 void ll_foreach(linkedList *l, listIterator it)
 {
-    // assert that a list iterating function was passed
+    // Assert that a list iterating function was passed
     assert(it);
 
     linkedListNode *node = l->head;
@@ -234,18 +273,18 @@ void ll_foreach(linkedList *l, listIterator it)
  */
 void ll_head(linkedList *l, void *el, bool remove)
 {
-    // assert that the list is initialized
+    // Assert that the list is initialized
     assert(l->head);
 
-    // copy the list's head to a new element
+    // Copy the list's head to a new element
     linkedListNode *node = l->head;
     memcpy(el, node->data, l->elementSize);
 
-    // remove/pop head node from list
+    // Remove/pop head node from list
     if (remove) {
         l->head = node->next;
 
-        // use freeFuction if it exists
+        // Use freeFuction if it exists
         if (l->freeFn)
             l->freeFn(node->data);
 
@@ -270,10 +309,10 @@ linkedListNode *ll_first(linkedList *l)
  */
 void ll_tail(linkedList *l, void *el)
 {
-    // assert that the list is initialized
+    // Assert that the list is initialized
     assert(l->tail);
 
-    // copy the list's tail to a new element
+    // Copy the list's tail to a new element
     linkedListNode *node = l->tail;
     memcpy(el, node->data, l->elementSize);
 }
@@ -311,14 +350,14 @@ size_t ll_length(linkedList *l)
  */
 void ll_reverse(linkedList *l)
 {
-    // assert the list is initialized
+    // Assert the list is initialized
     assert(l->head);
 
     linkedListNode *next;
     linkedListNode *prev = NULL;
     linkedListNode *curr = l->head;
 
-    // swap nodes
+    // Swap nodes
     while (curr) {
         next = curr->next;
         curr->next = prev;
@@ -326,7 +365,7 @@ void ll_reverse(linkedList *l)
         curr = next;
     }
 
-    // reset list head
+    // Reset list head
     l->head = prev;
 }
 
@@ -336,7 +375,7 @@ void ll_reverse(linkedList *l)
  */
 void ll_swapNodeData(linkedList *l, linkedListNode *a, linkedListNode *b)
 {
-    // allocate a temporary node
+    // Allocate a temporary node
     linkedListNode *tmp = calloc(1, sizeof(linkedListNode));
     if (!tmp) {
         perror("Unable to allocate memory for a temporary node");
@@ -347,12 +386,12 @@ void ll_swapNodeData(linkedList *l, linkedListNode *a, linkedListNode *b)
         abort();
     }
 
-    // swap data
+    // Swap data
     memcpy(tmp->data, a->data, l->elementSize);
     memcpy(a->data, b->data, l->elementSize);
     memcpy(b->data, tmp->data, l->elementSize);
 
-    // free temporary node
+    // Free temporary node
     free(tmp->data);
     free(tmp);
 }
@@ -366,7 +405,7 @@ void ll_selectionSort(linkedList *l, nodeComparator cmp)
 {
     assert(cmp);
 
-    // allocate three node pointers
+    // Allocate three node pointers
     linkedListNode *start = l->head; // start at list head
     linkedListNode *curr, *min;
 
@@ -374,16 +413,16 @@ void ll_selectionSort(linkedList *l, nodeComparator cmp)
         min = start;
         curr = start->next;
 
-        // find the lowest value from start in the list
+        // Find the lowest value from start in the list
         while (curr) {
             if ((cmp(min->data, curr->data) > 0))
                 min = curr;
             curr = curr->next;
         }
 
-        // swap start with lowest value found
+        // Swap start with lowest value found
         ll_swapNodeData(l, start, min);
-        start = start->next;    // move start node
+        start = start->next;    // move to next node
     }
 }
 
@@ -398,7 +437,7 @@ linkedList *ll_split(linkedList *a)
     if (a->logicalLength == 1)
         return NULL;
 
-    // split the list in two
+    // Split the list in two
     linkedListNode *fast = a->head, *slow = a->head;
     while (fast->next && fast->next->next) {
         fast = fast->next->next;
@@ -406,7 +445,7 @@ linkedList *ll_split(linkedList *a)
         a->logicalLength--;     // decrease original list length
     }
 
-    // create and initialize a new list with the second half of the original
+    // Create and initialize a new list with the second half of the original
     linkedList *b = calloc(1, sizeof(linkedList));
     b->elementSize = a->elementSize;
     b->head = slow->next;

@@ -1,6 +1,11 @@
+/**
+ * driver.c
+ *
+ * Small driver program to test list type code.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <stddef.h>
 #include <string.h>
 #include "ltypes.h"
 
