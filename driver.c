@@ -1,7 +1,7 @@
 /**
  * driver.c
  *
- * Small driver program to test list type code.
+ * Small driver program to test singly/doubly linked list library code.
  */
 
 #include <stdio.h>
@@ -49,53 +49,54 @@ void intLinkedList()
     ll_push(l, &i);
     printf("Done...\n\n");
 
-    printf("Search for value 7 in list...");
+    printf("Test 3: Search for value (7) in the list...");
     getchar();
     bool result;
     int data = 7;
     result = ll_search(l, &data, compareInt);
     if (result)
-        printf("Value 7 found.\n\n");
+        printf("Value 7 found.\n");
     else
-        printf("Value 7 not found.\n\n");
+        printf("Value 7 not found.\n");
+    printf("Done...\n\n");
 
-    printf("Delete value 7\n\n");
+    printf("Test 4: Delete value 7...");
     getchar();
     ll_deleteNode(l, &data, compareInt);
     ll_foreach(l, iterateIntList);
     printf("Done\n\n");
 
-    printf("Test 3: Iterate over list and print values found...");
+    printf("Test 5: Iterate over list and print values found...");
     getchar();
     ll_foreach(l, iterateIntList);
     printf("Done...\n\n");
     
-    printf("Test 4: Print list in reverse order without swapping nodes...");
+    printf("Test 6: Print list in reverse order without swapping nodes...");
     getchar();
     printf("[");
     printReverseIntLinkedList(ll_first(l));
     printf("]\n");
     printf("Done...\n\n");
 
-    printf("Test 5: Swap head and tail data...");
+    printf("Test 7: Swap head and tail data...");
     getchar();
     ll_swapNodeData(l, ll_first(l), ll_last(l));
     ll_foreach(l, iterateIntList);
     printf("Done...\n\n");
 
-    printf("Test 6: Reversing list by swapping nodes...");
+    printf("Test 8: Reversing list by swapping nodes...");
     getchar();
     ll_reverse(l);
     ll_foreach(l, iterateIntList);
     printf("Done...\n\n");
 
-    printf("Test 7: Sort list by swapping node data...");
+    printf("Test 9: Sort list by swapping node data...");
     getchar();
     ll_selectionSort(l, compareInt);
     ll_foreach(l, iterateIntList);
     printf("Done...\n\n");
 
-    printf("Test 8: Split the list in two...");
+    printf("Test 10: Split the list in two...");
     getchar();
     linkedList *b = ll_split(l);
     printf("Second half:\n");
@@ -104,7 +105,7 @@ void intLinkedList()
     ll_foreach(l, iterateIntList);
     printf("Done...\n\n");
 
-    printf("Test 9: Delete the lists...");
+    printf("Test 11: Delete the lists...");
     getchar();
     printf("Deleting first half of original list:\n");
     len = l->logicalLength;
@@ -144,43 +145,45 @@ void intDLinkedList()
     dll_push(l, &i);
     printf("Done...\n\n");
 
+    printf("Test 3: Search for value (7) in list...");
     bool result;
     int data = 7;
     result = dll_search(l, &data, compareInt);
     if (result)
-        printf("Value 7 found.\n\n");
+        printf("Value 7 found.\n");
     else
-        printf("Value 7 not found.\n\n");
+        printf("Value 7 not found.\n");
+    printf("Done...\n\n");
 
-    printf("Delete value 7\n\n");
+    printf("Test 4: Delete value 7...");
     getchar();
     dll_deleteNode(l, &data, compareInt);
     dll_foreach(l, iterateIntList);
     printf("Done\n\n");
 
-    printf("Test 3: Insert a number (11) after the begining of the list...");
+    printf("Test 5: Insert a number (11) after the begining of the list...");
     getchar();
     i = 11;
     dll_insertAfter(l, dll_first(l), &i);
     printf("Done...\n\n");
 
-    printf("Test 4: Insert a number (12) before the end of the list...");
+    printf("Test 6: Insert a number (12) before the end of the list...");
     getchar();
     i = 12;
     dll_insertBefore(l, dll_last(l), &i);
     printf("Done...\n\n");
 
-    printf("Test 5: Swap the list's head and tail data...");
+    printf("Test 7: Swap the list's head and tail data...");
     getchar();
     dll_swapNodeData(l, dll_first(l), dll_last(l));
     printf("Done.\n\n");
 
-    printf("Test 6: Iterate over list and print values found...");
+    printf("Test 8: Iterate over list and print values found...");
     getchar();
     dll_foreach(l, iterateIntList);
     printf("Done...\n\n");
 
-    printf("Test 7: Print list in reverse order without swapping node's...");
+    printf("Test 9: Print list in reverse order without swapping node's...");
     getchar();
     printf("[");
     dLinkedListNode *curr = dll_last(l);
@@ -190,19 +193,19 @@ void intDLinkedList()
     }
     printf("]\ndone....\n\n");
 
-    printf("Test 8: Reverse the list by swapping node's...");
+    printf("Test 10: Reverse the list by swapping node's...");
     getchar();
     dll_reverse(l);
     dll_foreach(l, iterateIntList);
     printf("Done...\n\n");
 
-    printf("Test 9: Sort the list by swapping node data...");
+    printf("Test 11: Sort the list by swapping node data...");
     getchar();
     dll_selectionSort(l, compareInt);
     dll_foreach(l, iterateIntList);
     printf("Done...\n\n");
 
-    printf("Test 10: Split the list in two...");
+    printf("Test 12: Split the list in two...");
     getchar();
     dLinkedList *b = dll_split(l);
     printf("Second half:\n");
@@ -211,7 +214,7 @@ void intDLinkedList()
     dll_foreach(l, iterateIntList);
     printf("Done...\n\n");
 
-    printf("Test 11: Delete the lists...");
+    printf("Test 13: Delete the lists...");
     getchar();
     len = dll_length(l);
     printf("Deleting first half of list...\n");

@@ -165,7 +165,7 @@ void ll_deleteNode(linkedList *l, void *data, nodeComparator cmp)
 {
     assert(cmp);
 
-    linkedListNode *entry = l->head, *prev;
+    linkedListNode *entry = l->head, *prev = NULL;
 
     // Edge case where node to be deleted is the list's head
     if (entry && cmp(entry->data, data) == 0) {
