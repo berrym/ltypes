@@ -1,4 +1,4 @@
-/**
+/**s
  * linkedList.c
  *
  * Functions to manipulate a generic singly linked list that can handle
@@ -221,6 +221,30 @@ void ll_deleteNode(linkedList *l, void *data, nodeComparator cmp)
 }
 
 /**
+ * ll_getNodeAt:
+ *  Return node at given position in list.
+ */
+linkedListNode *ll_getNodeAt(linkedList *l, size_t index)
+{
+    // Return NULL if index given exceeds the list's length
+    if (index > l->logicalLength)
+        return NULL;
+
+    linkedListNode *curr = l->head;
+    size_t i;
+
+    // Iterate over list looking for node at index
+    for (i = 1; curr; i++) {
+        if (i == index)
+            return curr;
+
+        curr = curr->next;
+    }
+
+    return NULL;                // node not found
+}
+
+/**
  * ll_search:
  *  Search a singly linked list for a node containing `data`.
  */
@@ -230,7 +254,7 @@ bool ll_search(linkedList *l, void *data, nodeComparator cmp)
 
     linkedListNode *curr = l->head;
 
-    // Traverse the list looking for a node matching `data`.
+    // Traverse the list looking for a node matching `data`
     while (curr) {
         if (cmp(curr->data, data) == 0)
             return true;

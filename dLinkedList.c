@@ -196,6 +196,7 @@ void dll_insertBefore(dLinkedList *l, dLinkedListNode *next, void *el)
     node->prev->next = node;
     l->logicalLength++;         // increase list's logical length
 }
+
 /**
  * dll_deleteNode:
  *  Delete a node from a singly linked list containing value `data`.
@@ -227,6 +228,30 @@ void dll_deleteNode(dLinkedList *l, void *data, nodeComparator cmp)
         // Move to the next list entry
         entry = entry->next;
     }
+}
+
+/**
+ * dll_getNodeAt:
+ *  Return node at given position in list.
+ */
+dLinkedListNode *dll_getNodeAt(dLinkedList *l, size_t index)
+{
+    // Return NULL if index given exceeds the list's length
+    if (index > l->logicalLength)
+        return NULL;
+
+    dLinkedListNode *curr = l->head;
+    size_t i;
+
+    // Iterate over list looking for node at index
+    for (i = 1; curr; i++) {
+        if (i == index)
+            return curr;
+
+        curr = curr->next;
+    }
+
+    return NULL;                // node not found
 }
 
 /**
