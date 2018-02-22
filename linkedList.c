@@ -1,4 +1,4 @@
-/**s
+/**
  * linkedList.c
  *
  * Functions to manipulate a generic singly linked list that can handle
