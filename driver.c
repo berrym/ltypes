@@ -19,6 +19,10 @@ bool iterateStringList(void *);
 void freeString(void *);
 int compareInt(const void *, const void *);
 
+/**
+ * main:
+ *  Program entry point.
+ */
 int main(int argc, char **argv)
 {
     printf("At each test press return/enter\n\n");
@@ -30,6 +34,10 @@ int main(int argc, char **argv)
     exit(EXIT_SUCCESS);
 }
 
+/**
+ * intLinkedList:
+ *  Series of operations on a singly linked list as tests.
+ */
 void intLinkedList()
 {
     printf("==== TEST SINGLY LINKED INTEGER LIST  ====.\n\n");
@@ -122,6 +130,10 @@ void intLinkedList()
     printf("Successfully freed %zu numbers...\n\n", len);
 }
 
+/**
+ * printreverseintlinkedList:
+ *  Print a linked list in reverse order using reursion.
+ */
 void printReverseIntLinkedList(linkedListNode *head)
 {
     if (!head)
@@ -130,6 +142,10 @@ void printReverseIntLinkedList(linkedListNode *head)
     printf(" %d ", *(int *)head->data);
 }
 
+/**
+ * intDlinkedList:
+ *  Series of ooperations on a doubly linked list as tests.
+ */
 void intDLinkedList()
 {
     printf("==== TEST DOUBLY LINKED INTEGER LIST ====\n\n");
@@ -138,7 +154,7 @@ void intDLinkedList()
 
     printf("Test 1: Create a list with first %zu positive integers...", len);
     getchar();
-    int i;
+    size_t i;
     dLinkedList *l = dll_create(sizeof(int), NULL);
     for (i = 1; i <= len; i++)
         dll_append(l, &i);
@@ -234,12 +250,23 @@ void intDLinkedList()
     printf("Successfully freed %zu numbers...\n\n", len);
 }
 
+/**
+ * iterateIntList:
+ *  Boolean value returned checking data existence, used in foreach operation.
+ */
 bool iterateIntList(void *data)
 {
-    printf("Found value: %d\n", *(int *)data);
-    return true;
+    if (data) {
+        printf("Found value: %d\n", *(int *)data);
+        return true;
+    }
+    return false;
 }
 
+/**
+ * stringLinkedList:
+ *  Series of operations on a singly linked list of strings as tests.
+ */
 void stringLinkedList()
 {
     printf("==== TEST SINGLY LINKED STRING LIST ====\n\n");
@@ -300,6 +327,10 @@ void stringLinkedList()
     printf("Sucessfully free'd %zu strings\n\n", len);
 }
 
+/**
+ * stringDLinkedList:
+ *  Series of operations on a doubly linked list of strings as tests.
+ */
 void stringDLinkedList()
 {
     printf("==== TESTING DOUBLY LINKED STRING LIST ====\n\n");
@@ -351,18 +382,34 @@ void stringDLinkedList()
     printf("Sucessfully free'd %zu strings\n\n", len);
 }
 
+/**
+ * iteratestringList:
+ *  Boolean test to check if data exists in node, used in foreach operation.
+ */
 bool iterateStringList(void *data)
 {
-    printf("Found string value: %s\n", *(char **)data);
-    return true;
+    if (data) {
+        printf("Found string value: %s\n", *(char **)data);
+        return true;
+    }
+    return false;
 }
 
+/**
+ * freeString:
+ *  Free string data.
+ */
 void freeString(void *data)
 {
     if (data)
         free(*(char **)data);
 }
 
+/**
+ * compareInt:
+ *  Compare to integers for equality.
+ *  Results are -1 for a < b, 0 for a == b, 1 for a > b
+ */
 int compareInt(const void *a, const void *b)
 {
     const int ia = *(const int *)a;

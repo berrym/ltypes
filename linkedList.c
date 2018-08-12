@@ -372,7 +372,7 @@ void ll_reverse(linkedList *l)
     // Assert the list is initialized
     assert(l->head);
 
-    linkedListNode *next;
+    linkedListNode *next = NULL;
     linkedListNode *prev = NULL;
     linkedListNode *curr = l->head;
 
