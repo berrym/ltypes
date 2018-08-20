@@ -13,7 +13,7 @@
 
 /**
  * dll_create:
- *      Initialize doubly linked list.
+ *  Initialize doubly linked list.
  */
 dLinkedList *dll_create(size_t size, freeFunction fn)
 {
@@ -35,7 +35,7 @@ dLinkedList *dll_create(size_t size, freeFunction fn)
 
 /**
  * dll_delete:
- *      Remove each node from a doubly linked list.
+ *  Remove each node from a doubly linked list.
  */
 void dll_delete(dLinkedList *l)
 {
