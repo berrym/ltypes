@@ -288,8 +288,7 @@ void dll_foreach(dLinkedList *l, listIterator it)
     bool result = true;
     dLinkedListNode *node = l->head;
 
-    // Iterate over the list, return on tail if the list is circular
-    // or head if travering the list in reverse
+    // Iterate over the list
     while (node && result) {
         result = it(node->data);
         node = node->next;
