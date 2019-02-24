@@ -13,7 +13,8 @@
 
 /**
  * ll_create:
- *      Initialize singly linked list.
+ *      Create and initialize a singly linked list.
+ *      Returns the list.
  */
 linkedList *ll_create(size_t size, freeFunction fn)
 {
@@ -35,7 +36,7 @@ linkedList *ll_create(size_t size, freeFunction fn)
 
 /**
  * ll_delete:
- *      Remove each node from a singly linked list.
+ *      Remove each node from a list.
  */
 void ll_delete(linkedList *l)
 {
@@ -59,7 +60,7 @@ void ll_delete(linkedList *l)
 
 /**
  * ll_push:
- *  Push a new node to the front of a singly linked list.
+ *      Push a new node to the front of a list.
  */
 void ll_push(linkedList *l, void *el)
 {
@@ -85,7 +86,7 @@ void ll_push(linkedList *l, void *el)
 
 /**
  * ll_append:
- *  Append a new node to the end of a singly linked list.
+ *      Append a new node to the end of a list.
  */
 void ll_append(linkedList *l, void *el)
 {
@@ -119,7 +120,7 @@ void ll_append(linkedList *l, void *el)
 
 /**
  * ll_insertAfter:
- *  Insert a new node into a singly linked list after a given node.
+ *      Insert a new node into a list after a given node.
  */
 void ll_insertAfter(linkedList *l, linkedListNode *prev, void *data)
 {
@@ -153,7 +154,7 @@ void ll_insertAfter(linkedList *l, linkedListNode *prev, void *data)
 
 /**
  * ll_deleteNode:
- *  Delete a node from a singly linked list containing value `data`.
+ *      Delete a node from a list containing value `data`.
  */
 void ll_deleteNode(linkedList *l, void *data, nodeComparator cmp)
 {
@@ -222,7 +223,7 @@ void ll_deleteNode(linkedList *l, void *data, nodeComparator cmp)
 
 /**
  * ll_getNodeAt:
- *  Return node at given position in list.
+ *      Return node at given position in list.
  */
 linkedListNode *ll_getNodeAt(linkedList *l, size_t index)
 {
@@ -246,7 +247,7 @@ linkedListNode *ll_getNodeAt(linkedList *l, size_t index)
 
 /**
  * ll_search:
- *  Search a singly linked list for a node containing `data`.
+ *      Search a list for a node containing `data`.
  */
 bool ll_search(linkedList *l, void *data, nodeComparator cmp)
 {
@@ -267,8 +268,8 @@ bool ll_search(linkedList *l, void *data, nodeComparator cmp)
 
 /**
  * ll_foreach:
- *  Iterate over a singly linked list and perform the tasks
- *  in the listIterator function on each node.
+ *      Iterate over a singly linked list and perform the tasks
+ *      in the listIterator function on each node.
  */
 void ll_foreach(linkedList *l, listIterator it)
 {
@@ -278,7 +279,7 @@ void ll_foreach(linkedList *l, listIterator it)
     linkedListNode *node = l->head;
     bool result = true;
 
-    // Iterate over the list, return on tail if the list is circular
+    // Iterate over the list
     while (node && result) {
         result = it(node->data);
         node = node->next;
@@ -287,8 +288,8 @@ void ll_foreach(linkedList *l, listIterator it)
 
 /**
  * ll_head:
- *  Return a copy of the head node's data of a singly linked list
- *  and optionally remove/pop it from the list.
+ *      Return a copy of the head node's data of a singly linked list
+ *      and optionally remove/pop it from the list.
  */
 void ll_head(linkedList *l, void *el, bool remove)
 {
@@ -315,7 +316,7 @@ void ll_head(linkedList *l, void *el, bool remove)
 
 /**
  * ll_first:
- *  Return a pointer to the first node of the singly linked list.
+ *      Return a pointer to the first node of the singly linked list.
  */
 linkedListNode *ll_first(linkedList *l)
 {
@@ -324,7 +325,7 @@ linkedListNode *ll_first(linkedList *l)
 
 /**
  * ll_tail:
- *  Return a copy of the tail node's data of a singly linked list.
+ *      Return a copy of the tail node's data of a singly linked list.
  */
 void ll_tail(linkedList *l, void *el)
 {
@@ -338,7 +339,7 @@ void ll_tail(linkedList *l, void *el)
 
 /**
  * ll_last:
- *  Return a pointer to the tail node of a singly linked list.
+ *      Return a pointer to the tail node of a singly linked list.
  */
 linkedListNode *ll_last(linkedList *l)
 {
@@ -347,7 +348,7 @@ linkedListNode *ll_last(linkedList *l)
 
 /**
  * ll_isEmpty:
- *  Return true if the singly linked list is empty, return false otherwise.
+ *      Return true if the singly linked list is empty, return false otherwise.
  */
 bool ll_isEmpty(linkedList *l)
 {
@@ -356,7 +357,7 @@ bool ll_isEmpty(linkedList *l)
 
 /**
  * ll_length:
- *  Rerturn the number of nodes in a singly linked list.
+ *      Rerturn the number of nodes in a singly linked list.
  */
 size_t ll_length(linkedList *l)
 {
@@ -365,7 +366,7 @@ size_t ll_length(linkedList *l)
 
 /**
  * ll_reverse:
- *  Reverse the node order of a singly linked list.
+ *      Reverse the node order of a singly linked list.
  */
 void ll_reverse(linkedList *l)
 {
@@ -390,7 +391,7 @@ void ll_reverse(linkedList *l)
 
 /**
  * ll_swapData:
- *  Swap the data of two node's in a singly linked list.
+ *      Swap the data of two node's in a list.
  */
 void ll_swapNodeData(linkedList *l, linkedListNode *a, linkedListNode *b)
 {
@@ -417,8 +418,8 @@ void ll_swapNodeData(linkedList *l, linkedListNode *a, linkedListNode *b)
 
 /**
  * ll_sort:
- *  Selection sort that iterates the list using a node comparator function
- *  and swaps node data.
+ *      Selection sort that iterates the list using a node comparator function
+ *      and swaps node data.
  */
 void ll_selectionSort(linkedList *l, nodeComparator cmp)
 {
@@ -447,9 +448,9 @@ void ll_selectionSort(linkedList *l, nodeComparator cmp)
 
 /**
  * ll_split:
- *  Split a linked list into two halves.  If there is an odd number
- *  of node's in the original list it goes into the first half, the
- *  second half of the list is initialized and returned.
+ *      Split a list into two halves.  If there is an odd number
+ *      of node's in the original list it goes into the first half, the
+ *      second half of the list is initialized and returned.
  */
 linkedList *ll_split(linkedList *a)
 {

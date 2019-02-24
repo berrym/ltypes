@@ -13,7 +13,8 @@
 
 /**
  * dll_create:
- *  Initialize doubly linked list.
+ *      Create and initialize a doubly linked list.
+ *      Returns the list.
  */
 dLinkedList *dll_create(size_t size, freeFunction fn)
 {
@@ -35,7 +36,7 @@ dLinkedList *dll_create(size_t size, freeFunction fn)
 
 /**
  * dll_delete:
- *  Remove each node from a doubly linked list.
+ *      Remove each node from a list.
  */
 void dll_delete(dLinkedList *l)
 {
@@ -62,7 +63,7 @@ void dll_delete(dLinkedList *l)
 
 /**
  * dll_push:
- *  Push a new node to the front of a doubly linked list.
+ *      Push a new node to the front of a list.
  */
 void dll_push(dLinkedList *l, void *el)
 {
@@ -92,7 +93,7 @@ void dll_push(dLinkedList *l, void *el)
 
 /**
  * dll_append:
- *  Append a new node to the end of a doubly linked list.
+ *      Append a new node to the end of a list.
  */
 void dll_append(dLinkedList *l, void *el)
 {
@@ -127,7 +128,7 @@ void dll_append(dLinkedList *l, void *el)
 
 /**
  * dll_insertAfter:
- *  Insert a new node into a doubly linked list after a given node.
+ *      Insert a new node into a list after a given node.
  */
 void dll_insertAfter(dLinkedList *l, dLinkedListNode *prev, void *el)
 {
@@ -163,7 +164,7 @@ void dll_insertAfter(dLinkedList *l, dLinkedListNode *prev, void *el)
 
 /**
  * dll_insertBefore:
- *  Insert a new node before a given node.
+ *      Insert a new node before a given node.
  */
 void dll_insertBefore(dLinkedList *l, dLinkedListNode *next, void *el)
 {
@@ -199,7 +200,7 @@ void dll_insertBefore(dLinkedList *l, dLinkedListNode *next, void *el)
 
 /**
  * dll_deleteNode:
- *  Delete a node from a singly linked list containing value `data`.
+ *      Delete a node from a list containing value `data`.
  */
 void dll_deleteNode(dLinkedList *l, void *data, nodeComparator cmp)
 {
@@ -232,7 +233,7 @@ void dll_deleteNode(dLinkedList *l, void *data, nodeComparator cmp)
 
 /**
  * dll_getNodeAt:
- *  Return node at given position in list.
+ *      Return node at given position in list.
  */
 dLinkedListNode *dll_getNodeAt(dLinkedList *l, size_t index)
 {
@@ -256,7 +257,7 @@ dLinkedListNode *dll_getNodeAt(dLinkedList *l, size_t index)
 
 /**
  * dll_search:
- *  Search a singly linked list for a node containing `data`.
+ *      Search a list for a node containing `data`.
  */
 bool dll_search(dLinkedList *l, void *data, nodeComparator cmp)
 {
@@ -277,8 +278,8 @@ bool dll_search(dLinkedList *l, void *data, nodeComparator cmp)
 
 /**
  * dll_foreach:
- *  Iterate over a doubly linked list and perform the tasks
- *  in the listIterator function on each node.
+ *      Iterate over a list and perform the tasks
+ *      in the listIterator function on each node.
  */
 void dll_foreach(dLinkedList *l, listIterator it)
 {
@@ -297,8 +298,8 @@ void dll_foreach(dLinkedList *l, listIterator it)
 
 /**
  * dll_head:
- *  Return a copy of the head of a doubly linked list's head and optionally
- *  remove/pop it from the list.
+ *      Return a copy of the head of a list's head and optionally
+ *      remove/pop it from the list.
  */
 void dll_head(dLinkedList *l, void *el, bool remove)
 {
@@ -325,7 +326,7 @@ void dll_head(dLinkedList *l, void *el, bool remove)
 
 /**
  * dll_first:
- *  Return a pointer to head node of the doubly linked list.
+ *      Return a pointer to head node of the list.
  */
 dLinkedListNode *dll_first(dLinkedList *l)
 {
@@ -334,7 +335,7 @@ dLinkedListNode *dll_first(dLinkedList *l)
 
 /**
  * dll_tail:
- *  Return a copy of the tail node of a doubly linked list.
+ *      Return a copy of the tail node of a list.
  */
 void dll_tail(dLinkedList *l, void *el)
 {
@@ -348,7 +349,7 @@ void dll_tail(dLinkedList *l, void *el)
 
 /**
  * dll_last:
- *  Return a pointer to the tail node of the doubly linked list.
+ *      Return a pointer to the tail node of the list.
  */
 dLinkedListNode *dll_last(dLinkedList *l)
 {
@@ -357,7 +358,7 @@ dLinkedListNode *dll_last(dLinkedList *l)
 
 /**
  * dll_isEmpty:
- *  Return true if the doubly linked list is empty, return false otherwise.
+ *      Return true if the list is empty, return false otherwise.
  */
 bool dll_isEmpty(dLinkedList *l)
 {
@@ -366,7 +367,7 @@ bool dll_isEmpty(dLinkedList *l)
 
 /**
  * dll_length:
- *  Rerturn the number of nodes in a doubly linked list.
+ *      Rerturn the number of nodes in a list.
  */
 size_t dll_length(dLinkedList *l)
 {
@@ -375,7 +376,7 @@ size_t dll_length(dLinkedList *l)
 
 /**
  * dll_reverse:
- *  Reverse the node order of a doubly linked list.
+ *      Reverse the node order of a list.
  */
 void dll_reverse(dLinkedList *l)
 {
@@ -395,7 +396,7 @@ void dll_reverse(dLinkedList *l)
 
 /**
  * dll_swapNodeData:
- *  Swap the data of two node's in a doubly linked list.
+ *      Swap the data of two node's in a list.
  */
 void dll_swapNodeData(dLinkedList *l, dLinkedListNode *a, dLinkedListNode *b)
 {
@@ -422,8 +423,8 @@ void dll_swapNodeData(dLinkedList *l, dLinkedListNode *a, dLinkedListNode *b)
 
 /**
  * dll_selectionSort:
- *  Selection sort that iterates the list using a node comparator function
- *  and swaps node data.
+ *      Selection sort that iterates the list using a node comparator function
+ *      and swaps node data.
  */
 void dll_selectionSort(dLinkedList *l, nodeComparator cmp)
 {
@@ -452,9 +453,9 @@ void dll_selectionSort(dLinkedList *l, nodeComparator cmp)
 
 /**
  * dll_split:
- *  Split a linked list into two halves.  If there is an odd number
- *  of node's in the original list it goes into the first half, the
- *  second half of the list is initialized and returned.
+ *      Split a list into two halves.  If there is an odd number
+ *      of node's in the original list it goes into the first half, the
+ *      second half of the list is initialized and returned.
  */
 dLinkedList *dll_split(dLinkedList *a)
 {
