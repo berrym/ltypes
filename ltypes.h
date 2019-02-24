@@ -4,24 +4,35 @@
 #include <stddef.h>             // for type size_t
 #include <stdbool.h>            // for type bool
 
+// Forward declarations of operations common to singly/doubly linked lists
 typedef void (*freeFunction)(void *);
 typedef bool (*listIterator)(void *);
 typedef int (*nodeComparator)(const void *, const void *);
 
+///////////////////////////////////////////////////////////////////////////////
 // Singly linked list
+//
+// A singly linked list is a common data structure that consists of a series
+// of nodes that contain a piece of data and a reference to the next node in
+// the list.  Singly linked lists in C are homogenous.
+///////////////////////////////////////////////////////////////////////////////
+
+// Singly linked list node
 typedef struct linkedListNode {
-    void *data;
-    struct linkedListNode *next;
+    void *data;                  // node data
+    struct linkedListNode *next; // pointer to the next node in the list
 } linkedListNode;
 
+// Singly linked list
 typedef struct linkedList {
-    size_t logicalLength;
-    size_t elementSize;
-    linkedListNode *head;
-    linkedListNode *tail;
-    freeFunction freeFn;
+    size_t logicalLength;       // number of nodes in the list
+    size_t elementSize;         // size of each element in bytes
+    linkedListNode *head;       // pointer to the beginning/head of the list
+    linkedListNode *tail;       // pointer to the end/tail of the list
+    freeFunction freeFn;        // optional function used to free nodes
 }  linkedList;
 
+// Forward declarations of singly linked list operations
 linkedList *ll_create(size_t, freeFunction);
 void ll_delete(linkedList *);
 void ll_push(linkedList *, void *);
@@ -42,21 +53,30 @@ void ll_swapNodeData(linkedList *, linkedListNode *, linkedListNode *);
 void ll_selectionSort(linkedList *, nodeComparator);
 linkedList *ll_split(linkedList *);
 
+///////////////////////////////////////////////////////////////////////////////
 // Doubly linked list
+//
+// A doubly linked list is like a singly linked list except that each node
+// contains a pointer to both the next and previus nodes in the list.
+///////////////////////////////////////////////////////////////////////////////
+
+// Doubly linked list node
 typedef struct dLinkedListNode {
-    void *data;
-    struct dLinkedListNode *prev;
-    struct dLinkedListNode *next;
+    void *data;                   // node data
+    struct dLinkedListNode *prev; // pointer to previous node
+    struct dLinkedListNode *next; // pointer to net node
 }  dLinkedListNode;
 
+// Doubly linked list
 typedef struct dLinkedList {
-    size_t logicalLength;
-    size_t elementSize;
-    dLinkedListNode *head;
-    dLinkedListNode *tail;
-    freeFunction freeFn;
+    size_t logicalLength;       // number of nodes in the list
+    size_t elementSize;         // size of each element in bytes
+    linkedListNode *head;       // pointer to the beginning/head of the list
+    linkedListNode *tail;       // pointer to the end/tail of the list
+    freeFunction freeFn;        // optional function used to free nodes
 } dLinkedList;
 
+// Forward declarations of doubly linked list operations
 dLinkedList *dll_create(size_t, freeFunction);
 void dll_delete(dLinkedList *);
 void dll_push(dLinkedList *, void *);
