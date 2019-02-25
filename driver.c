@@ -21,7 +21,7 @@ int compareInt(const void *, const void *);
 
 /**
  * main:
- *  Program entry point.
+ *      Program entry point.
  */
 int main(int argc, char **argv)
 {
@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 
 /**
  * intLinkedList:
- *  Series of operations on a singly linked list as tests.
+ *      Series of operations on a singly linked list as tests.
  */
 void intLinkedList()
 {
@@ -132,7 +132,7 @@ void intLinkedList()
 
 /**
  * printreverseintlinkedList:
- *  Print a linked list in reverse order using reursion.
+ *      Print a linked list in reverse order using reursion.
  */
 void printReverseIntLinkedList(linkedListNode *head)
 {
@@ -144,7 +144,7 @@ void printReverseIntLinkedList(linkedListNode *head)
 
 /**
  * intDlinkedList:
- *  Series of ooperations on a doubly linked list as tests.
+ *      Series of operations on a doubly linked list as tests.
  */
 void intDLinkedList()
 {
@@ -252,7 +252,7 @@ void intDLinkedList()
 
 /**
  * iterateIntList:
- *  Boolean value returned checking data existence, used in foreach operation.
+ *      Boolean check of data existence, used in foreach operation.
  */
 bool iterateIntList(void *data)
 {
@@ -265,7 +265,7 @@ bool iterateIntList(void *data)
 
 /**
  * stringLinkedList:
- *  Series of operations on a singly linked list of strings as tests.
+ *      Series of operations on a singly linked list of strings as tests.
  */
 void stringLinkedList()
 {
@@ -329,7 +329,7 @@ void stringLinkedList()
 
 /**
  * stringDLinkedList:
- *  Series of operations on a doubly linked list of strings as tests.
+ *      Series of operations on a doubly linked list of strings as tests.
  */
 void stringDLinkedList()
 {
@@ -384,7 +384,7 @@ void stringDLinkedList()
 
 /**
  * iteratestringList:
- *  Boolean test to check if data exists in node, used in foreach operation.
+ *      Boolean test to check if data exists in node, used in foreach operation.
  */
 bool iterateStringList(void *data)
 {
@@ -397,7 +397,7 @@ bool iterateStringList(void *data)
 
 /**
  * freeString:
- *  Free string data.
+ *      Free string data.
  */
 void freeString(void *data)
 {
@@ -407,8 +407,8 @@ void freeString(void *data)
 
 /**
  * compareInt:
- *  Compare to integers for equality.
- *  Results are -1 for a < b, 0 for a == b, 1 for a > b
+ *      Compare two integers for equality.
+ *      Results are -1 for a < b, 0 for a == b, 1 for a > b
  */
 int compareInt(const void *a, const void *b)
 {
