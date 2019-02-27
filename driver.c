@@ -4,6 +4,8 @@
  * Small driver program to test singly/doubly linked list library code.
  */
 
+#define _DEFAULT_SOURCE         // use this since strdup is not string ANSI C99
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
