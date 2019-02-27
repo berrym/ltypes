@@ -4,10 +4,17 @@
 #include <stddef.h>             // for type size_t
 #include <stdbool.h>            // for type bool
 
+// Result type used for nodeComarator functions
+typedef enum Result {
+    less = -1,
+    equal = 0,
+    greter = 1
+} Result;
+
 // Forward declarations of operations common to singly/doubly linked lists
 typedef void (*freeFunction)(void *);
 typedef bool (*listIterator)(void *);
-typedef int (*nodeComparator)(const void *, const void *);
+typedef Result (*nodeComparator)(const void *, const void *);
 
 ///////////////////////////////////////////////////////////////////////////////
 // Singly linked list

@@ -17,7 +17,7 @@ void stringLinkedList();
 void stringDLinkedList();
 bool iterateStringList(void *);
 void freeString(void *);
-int compareInt(const void *, const void *);
+Result compareInt(const void *, const void *);
 
 /**
  * main:
@@ -410,7 +410,7 @@ void freeString(void *data)
  *      Compare two integers for equality.
  *      Results are -1 for a < b, 0 for a == b, 1 for a > b
  */
-int compareInt(const void *a, const void *b)
+Result compareInt(const void *a, const void *b)
 {
     const int ia = *(const int *)a;
     const int ib = *(const int *)b;
