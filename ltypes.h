@@ -71,8 +71,8 @@ typedef struct dLinkedListNode {
 typedef struct dLinkedList {
     size_t logicalLength;       // number of nodes in the list
     size_t elementSize;         // size of each element in bytes
-    linkedListNode *head;       // pointer to the beginning/head of the list
-    linkedListNode *tail;       // pointer to the end/tail of the list
+    dLinkedListNode *head;       // pointer to the beginning/head of the list
+    dLinkedListNode *tail;       // pointer to the end/tail of the list
     freeFunction freeFn;        // optional function used to free nodes
 } dLinkedList;
 
