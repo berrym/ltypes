@@ -32,7 +32,9 @@ typedef Result (*nodeComparator)(const void *, const void *);
 // The second is to represent the list as a whole such as the size in bytes
 // in memory of the data in the node, the number of nodes in the list, and
 // pointers to both the head (first node) in the list and the tail (the last
-// node) in the list.
+// node) in the list.  It also contains a freeFunction that can be called
+// when removing nodes if neccesary, if this function is not necessary it can
+// be provided as NULL and will be ignored.
 ///////////////////////////////////////////////////////////////////////////////
 
 // Singly linked list node
