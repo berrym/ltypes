@@ -8,7 +8,7 @@
 typedef enum Result {
     less = -1,
     equal = 0,
-    greter = 1
+    greater = 1
 } Result;
 
 // Forward declarations of operations common to singly/doubly linked lists
