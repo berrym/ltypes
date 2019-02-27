@@ -4,7 +4,7 @@
 #include <stddef.h>             // for type size_t
 #include <stdbool.h>            // for type bool
 
-// Result type used for nodeComarator functions
+// Result type used for nodeComparator functions
 typedef enum Result {
     less = -1,
     equal = 0,
@@ -64,7 +64,7 @@ linkedList *ll_split(linkedList *);
 // Doubly linked list
 //
 // A doubly linked list is like a singly linked list except that each node
-// contains a pointer to both the next and previus nodes in the list.
+// contains a pointer to both the next and previous nodes in the list.
 ///////////////////////////////////////////////////////////////////////////////
 
 // Doubly linked list node
