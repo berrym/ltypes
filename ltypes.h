@@ -6,9 +6,9 @@
 
 // Result type used for nodeComparator functions
 typedef enum Result {
-    less = -1,
-    equal = 0,
-    greater = 1
+    LESS = -1,
+    EQUAL = 0,
+    GREATER = 1
 } Result;
 
 // Forward declarations of operations common to singly/doubly linked lists

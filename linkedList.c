@@ -179,7 +179,7 @@ void ll_deleteNode(linkedList *l, void *data, nodeComparator cmp)
 
     // Traverse the list looking for node to be deleted, if found remove it
     while (entry) {
-        if (cmp(entry->data, data) == 0) {
+        if (cmp(entry->data, data) == EQUAL) {
             prev->next = entry->next;
 
             if (l->freeFn)
@@ -257,7 +257,7 @@ bool ll_search(linkedList *l, void *data, nodeComparator cmp)
 
     // Traverse the list looking for a node matching `data`
     while (curr) {
-        if (cmp(curr->data, data) == 0)
+        if (cmp(curr->data, data) == EQUAL)
             return true;
 
         curr = curr->next;
@@ -435,7 +435,7 @@ void ll_selectionSort(linkedList *l, nodeComparator cmp)
 
         // Find the lowest value from start in the list
         while (curr) {
-            if ((cmp(min->data, curr->data) > 0))
+            if ((cmp(min->data, curr->data) == GREATER))
                 min = curr;
             curr = curr->next;
         }

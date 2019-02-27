@@ -211,18 +211,22 @@ void dll_deleteNode(dLinkedList *l, void *data, nodeComparator cmp)
 
     // Traverse the list looking for the node to delete
     while (entry) {
-        if (cmp(entry->data, data) == 0) { // compare entry data to data
+        if (cmp(entry->data, data) == EQUAL) { // compare entry data to data
+            // Reset node links
             if (entry == l->head)
                 entry = entry->next;
             if (entry->next)
                 entry->next->prev = entry->prev;
             if (entry->prev)
                 entry->prev->next = entry->next;
+
+            // Free node data and node itself
             if (l->freeFn)
                 l->freeFn(entry->data);
             free(entry->data);
             free(entry);        // remove entry
             l->logicalLength--; // decrease list's length
+
             return;
         }
 
@@ -267,7 +271,7 @@ bool dll_search(dLinkedList *l, void *data, nodeComparator cmp)
 
     // Traverse the list looking for a node matching `data`.
     while (curr) {
-        if (cmp(curr->data, data) == 0)
+        if (cmp(curr->data, data) == EQUAL)
             return true;
 
         curr = curr->next;
@@ -440,7 +444,7 @@ void dll_selectionSort(dLinkedList *l, nodeComparator cmp)
 
         // Find the lowest value from start in the list
         while (curr) {
-            if ((cmp(min->data, curr->data) > 0))
+            if ((cmp(min->data, curr->data) == GREATER))
                 min = curr;
             curr = curr->next;
         }
