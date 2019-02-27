@@ -21,7 +21,7 @@ typedef Result (*nodeComparator)(const void *, const void *);
 //
 // A singly linked list is a common data structure that consists of a series
 // of nodes that contain a piece of data and a pointer to the next node in
-// the list.  Singly linked lists in C are homogenous (each list contains the
+// the list.  Singly linked lists in C are homogenous (each node contains the
 // same data type).
 //
 // In this implementation of a linked list we use two different structs.
