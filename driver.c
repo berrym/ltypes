@@ -1,7 +1,5 @@
 /**
- * driver.c
- *
- * Small driver program to test singly/doubly linked list library code.
+ * driver.c - small program to test ltypes library code.
  */
 
 #define _DEFAULT_SOURCE         // use this since strdup is not strict ANSI C99
@@ -9,7 +7,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "ltypes.h"
+#include <signal.h>
+#include "lists.h"
+#include "errors.h"
 
 void intLinkedList();
 void printReverseIntLinkedList(linkedListNode *);
@@ -27,6 +27,11 @@ Result compareInt(const void *, const void *);
  */
 int main(int argc, char **argv)
 {
+    // Set up some signal handlers
+    signal(SIGINT, sig_int);
+    signal(SIGSEGV, sig_seg);
+
+    // Run some tests
     printf("At each test press return/enter\n\n");
     intLinkedList();
     intDLinkedList();
@@ -410,7 +415,7 @@ void freeString(void *data)
 /**
  * compareInt:
  *      Compare two integers for equality.
- *      Results are -1 for a < b, 0 for a == b, 1 for a > b
+ *      Result is LESS for a < b, EQUAL for a == b, GREATER for a > b
  */
 Result compareInt(const void *a, const void *b)
 {

@@ -3,13 +3,39 @@
  *
  * Functions to manipulate a generic singly linked list that can handle
  * multiple types by use of type casting from void variable/function pointers.
+ *
+ * Copyright (c) 2019 Michael Berry <trismegustis@gmail.com>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#include "ltypes.h"
+#include "lists.h"
+#include "errors.h"
 
 /**
  * ll_create:
@@ -20,10 +46,8 @@ linkedList *ll_create(size_t size, freeFunction fn)
 {
     // Allocate list
     linkedList *l = calloc(1, sizeof(linkedList));
-    if (!l) {
-        perror("Unable to allocate linkedList");
-        abort();
-    }
+    if (!l)
+        error_abort("Unable to allocate linkedList");
 
     // Initialize list
     l->logicalLength = 0;
@@ -66,16 +90,12 @@ void ll_push(linkedList *l, void *el)
 {
     // Allocate memory for a new list node
     linkedListNode *node = calloc(1, sizeof(linkedListNode));
-    if (!node) {
-        perror("unable to allocate memory for node");
-        abort();
-    }
+    if (!node)
+        error_abort("unable to allocate memory for node");
 
     // Allocate memory for node's new data
-    if ((node->data = calloc(1, l->elementSize)) == NULL) {
-        perror("unable to allocate memory for node");
-        abort();
-    }
+    if ((node->data = calloc(1, l->elementSize)) == NULL)
+        error_abort("unable to allocate memory for node");
 
     // Copy new data to node
     memcpy(node->data, el, l->elementSize);
@@ -92,16 +112,12 @@ void ll_append(linkedList *l, void *el)
 {
     // Allocate memory for a new list node
     linkedListNode *node = calloc(1, sizeof(linkedListNode));
-    if (!node) {
-        perror("unable to allocate memory for node");
-        abort();
-    }
+    if (!node)
+        error_abort("unable to allocate memory for node");
 
     // Allocate memory for node's new data
-    if ((node->data = calloc(1, l->elementSize)) == NULL) {
-        perror("unable to allocate memory for node");
-        abort();
-    }
+    if ((node->data = calloc(1, l->elementSize)) == NULL)
+        error_abort("unable to allocate memory for node");
 
     // Copy new data into node
     memcpy(node->data, el, l->elementSize);
@@ -134,17 +150,15 @@ void ll_insertAfter(linkedList *l, linkedListNode *prev, void *data)
 
     // Allocate memory for the new node
     linkedListNode *node = calloc(1, sizeof(linkedListNode));
-    if (!node) {
-        perror("Unable to allocate memory for new node");
-        abort();
-    }
+    if (!node)
+        error_abort("Unable to allocate memory for new node");
 
     // Allocate memory for the new node's data
-    if (!(node->data = calloc(1, l->elementSize))) {
-        perror("unable to allocate memory for node");
-        abort();
-    }
-    memcpy(node->data, data, l->elementSize); // copy data
+    if (!(node->data = calloc(1, l->elementSize)))
+        error_abort("unable to allocate memory for node");
+
+    // Copy data
+    memcpy(node->data, data, l->elementSize);
 
     // Set new node links
     node->next = prev->next;
@@ -397,14 +411,11 @@ void ll_swapNodeData(linkedList *l, linkedListNode *a, linkedListNode *b)
 {
     // Allocate a temporary node
     linkedListNode *tmp = calloc(1, sizeof(linkedListNode));
-    if (!tmp) {
-        perror("Unable to allocate memory for a temporary node");
-        abort();
-    }
-    if (!(tmp->data = calloc(1, sizeof(l->elementSize)))) {
-        perror("Unable to allocate memory for temporary node data");
-        abort();
-    }
+    if (!tmp)
+        error_abort("Unable to allocate memory for a temporary node");
+
+    if (!(tmp->data = calloc(1, sizeof(l->elementSize))))
+        error_abort("Unable to allocate memory for temporary node data");
 
     // Swap data
     memmove(tmp->data, a->data, l->elementSize);

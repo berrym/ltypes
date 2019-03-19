@@ -3,13 +3,39 @@
  *
  * Functions to manipulate a generic doubly linked list that can handle
  * multiple types by use of type casting from void variable/function pointers.
+ *
+ * Copyright (c) 2019 Michael Berry <trismegustis@gmail.com>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#include "ltypes.h"
+#include "lists.h"
+#include "errors.h"
 
 /**
  * dll_create:
@@ -20,10 +46,8 @@ dLinkedList *dll_create(size_t size, freeFunction fn)
 {
     // Allocate list
     dLinkedList *l = calloc(1, sizeof(dLinkedList));
-    if (!l) {
-        perror("Unable to allocate linkedList");
-        abort();
-    }
+    if (!l)
+        error_abort("Unable to allocate linkedList");
 
     // Initialize list
     l->logicalLength = 0;
@@ -69,17 +93,14 @@ void dll_push(dLinkedList *l, void *el)
 {
     // Allocate memory for new list node
     dLinkedListNode *node = calloc(1, sizeof(dLinkedListNode));
-    if (!node) {
-        perror("unable to allocate memory for node");
-        abort();
-    }
+    if (!node)
+        error_abort("unable to allocate memory for node");
+
     node->prev = NULL;
 
     // Allocate memory for new node's data
-    if ((node->data = calloc(1, l->elementSize)) == NULL) {
-        perror("unable to allocate memory for node");
-        abort();
-    }
+    if ((node->data = calloc(1, l->elementSize)) == NULL)
+        error_abort("unable to allocate memory for node");
 
     // Copy new data to node
     memcpy(node->data, el, l->elementSize);
@@ -99,16 +120,14 @@ void dll_append(dLinkedList *l, void *el)
 {
     // Allocate memory for a new node
     dLinkedListNode *node = calloc(1, sizeof(dLinkedListNode));
-    if (!node) {
-        perror("unable to allocate memory for node");
-        abort();
-    }
+    if (!node)
+        error_abort("unable to allocate memory for node");
 
     // Allocate memory for the new node's data
-    if ((node->data = calloc(1, l->elementSize)) == NULL) {
-        perror("unable to allocate memory for node");
-        abort();
-    }
+    if ((node->data = calloc(1, l->elementSize)) == NULL)
+        error_abort("unable to allocate memory for node");
+
+    // Copy data into node
     memcpy(node->data, el, l->elementSize);
 
     // Reset node links
@@ -142,16 +161,14 @@ void dll_insertAfter(dLinkedList *l, dLinkedListNode *prev, void *el)
 
     // Allocate memory for the new node
     dLinkedListNode *node = calloc(1, sizeof(dLinkedListNode));
-    if (!node) {
-        perror("Unable to allocate memory for new node");
-        abort();
-    }
+    if (!node)
+        error_abort("Unable to allocate memory for new node");
 
     // Allocate memory for the new node's data
-    if (!(node->data = calloc(1, l->elementSize))) {
-        perror("unable to allocate memory for node");
-        abort();
-    }
+    if (!(node->data = calloc(1, l->elementSize)))
+        error_abort("unable to allocate memory for node");
+
+    // Copy data into node
     memcpy(node->data, el, l->elementSize); // copy data
 
     // Set new node links
@@ -178,16 +195,14 @@ void dll_insertBefore(dLinkedList *l, dLinkedListNode *next, void *el)
 
     // Allocate memory for the new node
     dLinkedListNode *node = calloc(1, sizeof(dLinkedListNode));
-    if (!node) {
-        perror("Unable to allocate memory for new node");
-        abort();
-    }
+    if (!node)
+        error_abort("Unable to allocate memory for new node");
 
     // Allocate memory for the new node's data
-    if (!(node->data = calloc(1, l->elementSize))) {
-        perror("unable to allocate memory for node");
-        abort();
-    }
+    if (!(node->data = calloc(1, l->elementSize)))
+        error_abort("unable to allocate memory for node");
+
+    // Copy data into node
     memcpy(node->data, el, l->elementSize); // copy data
 
     // Set new node links
@@ -406,14 +421,11 @@ void dll_swapNodeData(dLinkedList *l, dLinkedListNode *a, dLinkedListNode *b)
 {
     // Allocate a temporary node
     dLinkedListNode *temp = calloc(1, sizeof(dLinkedListNode));
-    if (!temp) {
-        perror("Unable to allocate memory for a temporary node");
-        abort();
-    }
-    if (!(temp->data = calloc(1, sizeof(l->elementSize)))) {
-        perror("Unable to allocate memory for temporary node data");
-        abort();
-    }
+    if (!temp)
+        error_abort("Unable to allocate memory for a temporary node");
+
+    if (!(temp->data = calloc(1, sizeof(l->elementSize))))
+        error_abort("Unable to allocate memory for temporary node data");
 
     // Swap data
     memmove(temp->data, a->data, l->elementSize);
@@ -477,9 +489,13 @@ dLinkedList *dll_split(dLinkedList *a)
 
     // Create and initialize a new list with the second half of the original
     dLinkedList *b = calloc(1, sizeof(dLinkedList));
+    if (!b)
+        error_abort("Unable to allocate dLinkedList");
+
     b->elementSize = a->elementSize;
     b->head = slow->next;
     slow->next = NULL;
+
     size_t i;
     dLinkedListNode *it = b->head;
     for (i = 0; it; i++) {

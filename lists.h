@@ -84,7 +84,7 @@ linkedList *ll_split(linkedList *);
 typedef struct dLinkedListNode {
     void *data;                   // node data
     struct dLinkedListNode *prev; // pointer to previous node
-    struct dLinkedListNode *next; // pointer to net node
+    struct dLinkedListNode *next; // pointer to next node
 }  dLinkedListNode;
 
 // Doubly linked list
