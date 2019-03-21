@@ -1,5 +1,5 @@
-#ifndef LTYPES_H
-#define LTYPES_H
+#ifndef LISTS_H
+#define LISTS_H
 
 #include <stddef.h>             // for type size_t
 #include <stdbool.h>            // for type bool
