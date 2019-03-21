@@ -43,7 +43,8 @@ static const int MAXLINE = 128;
  */
 static void do_error(bool errnoflag, int err, const char *fmt, va_list args)
 {
-    char buf[MAXLINE] = { '\0' };
+    char buf[MAXLINE];
+    memset(buf, 0, MAXLINE*sizeof(char));
 
     vsnprintf(buf, MAXLINE - 1, fmt, args);
     if (errnoflag)
