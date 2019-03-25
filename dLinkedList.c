@@ -300,7 +300,7 @@ bool dll_search(dLinkedList *l, void *data, nodeComparator cmp)
  *      Iterate over a list and perform the tasks
  *      in the listIterator function on each node.
  */
-void dll_foreach(dLinkedList *l, listIterator it)
+void dll_foreach(dLinkedList *l, listIterator it, bool out)
 {
     // Assert that a list iterating function was passed
     assert(it);
@@ -310,7 +310,7 @@ void dll_foreach(dLinkedList *l, listIterator it)
 
     // Iterate over the list
     while (node && result) {
-        result = it(node->data);
+        result = it(node->data, out);
         node = node->next;
     }
 }

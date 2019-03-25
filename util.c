@@ -6,10 +6,11 @@
  * iterFuncIntListFind:
  *      Boolean check of data existence, used in foreach operation.
  */
-bool iterFuncIntListFind(void *data)
+bool iterFuncIntListFind(void *data, bool out)
 {
     if (data) {
-        printf("Found value: %d\n", Int data);
+        if (out)
+            printf("Found value: %d\n", Int data);
         return true;
     }
     return false;
@@ -19,10 +20,11 @@ bool iterFuncIntListFind(void *data)
  * iterFuncStringListFind:
  *      Boolean test to check if data exists in node, used in foreach operation.
  */
-bool iterFuncStringListFind(void *data)
+bool iterFuncStringListFind(void *data, bool out)
 {
     if (data) {
-        printf("Found string value: %s\n", String data);
+        if (out)
+            printf("Found string value: %s\n", String data);
         return true;
     }
     return false;

@@ -48,7 +48,7 @@ void ll_insertAfter(linkedList *, linkedListNode *, void *);
 void ll_deleteNode(linkedList *, void *, nodeComparator);
 linkedListNode *ll_getNodeAt(linkedList *, size_t);
 bool ll_search(linkedList *, void *, nodeComparator);
-void ll_foreach(linkedList *, listIterator);
+void ll_foreach(linkedList *, listIterator, bool);
 void ll_head(linkedList *, void *, bool);
 linkedListNode *ll_first(linkedList *);
 void ll_tail(linkedList *, void *);
@@ -93,7 +93,7 @@ void dll_insertBefore(dLinkedList *, dLinkedListNode *, void *);
 void dll_deleteNode(dLinkedList *, void *, nodeComparator);
 dLinkedListNode *dll_getNodeAt(dLinkedList *, size_t);
 bool dll_search(dLinkedList *, void *, nodeComparator);
-void dll_foreach(dLinkedList *, listIterator);
+void dll_foreach(dLinkedList *, listIterator, bool);
 void dll_head(dLinkedList *, void *, bool);
 dLinkedListNode *dll_first(dLinkedList *);
 void dll_tail(dLinkedList *, void *);
@@ -106,9 +106,9 @@ void dll_selectionSort(dLinkedList *, nodeComparator);
 dLinkedList *dll_split(dLinkedList *);
 
 // Forward declaration of some common helper functions
-bool iterFuncIntListFind(void *);
+bool iterFuncIntListFind(void *, bool);
 void printReverseIntLinkedList(linkedListNode *);
-bool iterFuncStringListFind(void *);
+bool iterFuncStringListFind(void *, bool);
 void freeString(void *);
 Result compareInt(const void *, const void *);
 

@@ -285,7 +285,7 @@ bool ll_search(linkedList *l, void *data, nodeComparator cmp)
  *      Iterate over a singly linked list and perform the tasks
  *      in the listIterator function on each node.
  */
-void ll_foreach(linkedList *l, listIterator it)
+void ll_foreach(linkedList *l, listIterator it, bool out)
 {
     // Assert that a list iterating function was passed
     assert(it);
@@ -295,7 +295,7 @@ void ll_foreach(linkedList *l, listIterator it)
 
     // Iterate over the list
     while (node && result) {
-        result = it(node->data);
+        result = it(node->data, out);
         node = node->next;
     }
 }

@@ -18,7 +18,7 @@ typedef enum Result {
 
 // Forward declarations of operations common to list/tree types
 typedef void (*freeFunction)(void *);
-typedef bool (*listIterator)(void *);
+typedef bool (*listIterator)(void *, bool);
 typedef Result (*nodeComparator)(const void *, const void *);
 
 #endif
