@@ -5,9 +5,9 @@
 #include <stdbool.h>            // for type bool
 
 // Type cast definitions
-#define Int *(int *)
-#define ConstInt *(const int *)
-#define String *(char **)
+#define CastInt *(int *)
+#define CastConstInt *(const int *)
+#define CastString *(char **)
 
 // Result type used for nodeComparator functions
 typedef enum Result {

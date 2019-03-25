@@ -10,7 +10,7 @@ bool iterFuncIntListFind(void *data, bool out)
 {
     if (data) {
         if (out)
-            printf("Found value: %d\n", Int data);
+            printf("Found value: %d\n", CastInt data);
         return true;
     }
     return false;
@@ -24,7 +24,7 @@ bool iterFuncStringListFind(void *data, bool out)
 {
     if (data) {
         if (out)
-            printf("Found string value: %s\n", String data);
+            printf("Found string value: %s\n", CastString data);
         return true;
     }
     return false;
@@ -37,7 +37,7 @@ bool iterFuncStringListFind(void *data, bool out)
 void freeString(void *data)
 {
     if (data)
-        free(String data);
+        free(CastString data);
 }
 
 /**
@@ -47,8 +47,8 @@ void freeString(void *data)
  */
 Result compareInt(const void *a, const void *b)
 {
-    const int ia = ConstInt a;
-    const int ib = ConstInt b;
+    const int ia = CastConstInt a;
+    const int ib = CastConstInt b;
     return (ia > ib) - (ia < ib);
 }
 
@@ -62,5 +62,5 @@ void printReverseIntLinkedList(linkedListNode *head)
     if (!head)
         return;
     printReverseIntLinkedList(head->next);
-    printf(" %d ", Int head->data);
+    printf(" %d ", CastInt head->data);
 }
