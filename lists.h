@@ -1,20 +1,7 @@
 #ifndef LISTS_H
 #define LISTS_H
 
-#include <stddef.h>             // for type size_t
-#include <stdbool.h>            // for type bool
-
-// Result type used for nodeComparator functions
-typedef enum Result {
-    LESS = -1,
-    EQUAL = 0,
-    GREATER = 1
-} Result;
-
-// Forward declarations of operations common to singly/doubly linked lists
-typedef void (*freeFunction)(void *);
-typedef bool (*listIterator)(void *);
-typedef Result (*nodeComparator)(const void *, const void *);
+#include "ltypes.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 // Singly linked list
@@ -117,5 +104,12 @@ void dll_reverse(dLinkedList *);
 void dll_swapNodeData(dLinkedList *, dLinkedListNode *, dLinkedListNode *);
 void dll_selectionSort(dLinkedList *, nodeComparator);
 dLinkedList *dll_split(dLinkedList *);
+
+// Forward declaration of some common helper functions
+bool iterFuncIntListFind(void *);
+void printReverseIntLinkedList(linkedListNode *);
+bool iterFuncStringListFind(void *);
+void freeString(void *);
+Result compareInt(const void *, const void *);
 
 #endif

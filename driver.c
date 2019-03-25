@@ -12,14 +12,9 @@
 #include "errors.h"
 
 void intLinkedList();
-void printReverseIntLinkedList(linkedListNode *);
 void intDLinkedList();
-bool iterateIntList(void *);
 void stringLinkedList();
 void stringDLinkedList();
-bool iterateStringList(void *);
-void freeString(void *);
-Result compareInt(const void *, const void *);
 
 /**
  * main:
@@ -67,7 +62,7 @@ void intLinkedList()
     printf("Test 3: Get value at index 9...");
     getchar();
     linkedListNode *temp = ll_getNodeAt(l, 9);
-    printf("Value at index 9: %d\nDone...\n\n", *(int *)temp->data);
+    printf("Value at index 9: %d\nDone...\n\n", Int temp->data);
 
     printf("Test 4: Search for value (7) in the list...");
     getchar();
@@ -83,12 +78,12 @@ void intLinkedList()
     printf("Test 5: Delete value 7...");
     getchar();
     ll_deleteNode(l, &data, compareInt);
-    ll_foreach(l, iterateIntList);
+    ll_foreach(l, iterFuncIntListFind);
     printf("Done\n\n");
 
     printf("Test 6: Iterate over list and print values found...");
     getchar();
-    ll_foreach(l, iterateIntList);
+    ll_foreach(l, iterFuncIntListFind);
     printf("Done...\n\n");
     
     printf("Test 7: Print list in reverse order without swapping nodes...");
@@ -101,28 +96,28 @@ void intLinkedList()
     printf("Test 8: Swap head and tail data...");
     getchar();
     ll_swapNodeData(l, ll_first(l), ll_last(l));
-    ll_foreach(l, iterateIntList);
+    ll_foreach(l, iterFuncIntListFind);
     printf("Done...\n\n");
 
     printf("Test 9: Reversing list by swapping nodes...");
     getchar();
     ll_reverse(l);
-    ll_foreach(l, iterateIntList);
+    ll_foreach(l, iterFuncIntListFind);
     printf("Done...\n\n");
 
     printf("Test 10: Sort list by swapping node data...");
     getchar();
     ll_selectionSort(l, compareInt);
-    ll_foreach(l, iterateIntList);
+    ll_foreach(l, iterFuncIntListFind);
     printf("Done...\n\n");
 
     printf("Test 11: Split the list in two...");
     getchar();
     linkedList *b = ll_split(l);
     printf("Second half:\n");
-    ll_foreach(b, iterateIntList);
+    ll_foreach(b, iterFuncIntListFind);
     printf("First half:\n");
-    ll_foreach(l, iterateIntList);
+    ll_foreach(l, iterFuncIntListFind);
     printf("Done...\n\n");
 
     printf("Test 12: Delete the lists...");
@@ -135,18 +130,6 @@ void intLinkedList()
     len = b->logicalLength;
     ll_delete(b);
     printf("Successfully freed %zu numbers...\n\n", len);
-}
-
-/**
- * printreverseintlinkedList:
- *      Print a linked list in reverse order using reursion.
- */
-void printReverseIntLinkedList(linkedListNode *head)
-{
-    if (!head)
-        return;
-    printReverseIntLinkedList(head->next);
-    printf(" %d ", *(int *)head->data);
 }
 
 /**
@@ -175,7 +158,7 @@ void intDLinkedList()
 
     printf("Test 3: Get value at index 9...");
     dLinkedListNode *temp = dll_getNodeAt(l, 9);
-    printf("Value at index 9: %d\nDone...\n\n", *(int *)temp->data);
+    printf("Value at index 9: %d\nDone...\n\n", Int temp->data);
 
     printf("Test 4: Search for value (7) in list...");
     bool result;
@@ -190,7 +173,7 @@ void intDLinkedList()
     printf("Test 5: Delete value 7...");
     getchar();
     dll_deleteNode(l, &data, compareInt);
-    dll_foreach(l, iterateIntList);
+    dll_foreach(l, iterFuncIntListFind);
     printf("Done\n\n");
 
     printf("Test 6: Insert a number (11) after the begining of the list...");
@@ -212,7 +195,7 @@ void intDLinkedList()
 
     printf("Test 9: Iterate over list and print values found...");
     getchar();
-    dll_foreach(l, iterateIntList);
+    dll_foreach(l, iterFuncIntListFind);
     printf("Done...\n\n");
 
     printf("Test 10: Print list in reverse order without swapping node's...");
@@ -228,22 +211,22 @@ void intDLinkedList()
     printf("Test 11: Reverse the list by swapping node's...");
     getchar();
     dll_reverse(l);
-    dll_foreach(l, iterateIntList);
+    dll_foreach(l, iterFuncIntListFind);
     printf("Done...\n\n");
 
     printf("Test 12: Sort the list by swapping node data...");
     getchar();
     dll_selectionSort(l, compareInt);
-    dll_foreach(l, iterateIntList);
+    dll_foreach(l, iterFuncIntListFind);
     printf("Done...\n\n");
 
     printf("Test 13: Split the list in two...");
     getchar();
     dLinkedList *b = dll_split(l);
     printf("Second half:\n");
-    dll_foreach(b, iterateIntList);
+    dll_foreach(b, iterFuncIntListFind);
     printf("First half:\n");
-    dll_foreach(l, iterateIntList);
+    dll_foreach(l, iterFuncIntListFind);
     printf("Done...\n\n");
 
     printf("Test 14: Delete the lists...");
@@ -255,19 +238,6 @@ void intDLinkedList()
     len = dll_length(b);
     dll_delete(b);
     printf("Successfully freed %zu numbers...\n\n", len);
-}
-
-/**
- * iterateIntList:
- *      Boolean check of data existence, used in foreach operation.
- */
-bool iterateIntList(void *data)
-{
-    if (data) {
-        printf("Found value: %d\n", *(int *)data);
-        return true;
-    }
-    return false;
 }
 
 /**
@@ -309,7 +279,7 @@ void stringLinkedList()
 
     printf("Test 3: Iterate over list and print values found...");
     getchar();
-    ll_foreach(l, iterateStringList);
+    ll_foreach(l, iterFuncStringListFind);
     printf("Done...\n\n");
 
     printf("Test 4: Swap head and tail data of list...");
@@ -319,13 +289,13 @@ void stringLinkedList()
 
     printf("Test 5: Iterate over list and print values found...");
     getchar();
-    ll_foreach(l, iterateStringList);
+    ll_foreach(l, iterFuncStringListFind);
     printf("Done...\n\n");
 
     printf("Test 6: Reverse list by swapping nodes...");
     getchar();
     ll_reverse(l);
-    ll_foreach(l, iterateStringList);
+    ll_foreach(l, iterFuncStringListFind);
     printf("Done...\n\n");
 
     printf("Test 7: Delete list...");
@@ -374,52 +344,17 @@ void stringDLinkedList()
 
     printf("Test 3: Iterate over list and print values found...");
     getchar();
-    dll_foreach(l, iterateStringList);
+    dll_foreach(l, iterFuncStringListFind);
     printf("Done...\n\n");
 
     printf("Test 4: Reverse order of list by swapping nodes...");
     getchar();
     dll_reverse(l);
-    dll_foreach(l, iterateStringList);
+    dll_foreach(l, iterFuncStringListFind);
     printf("Done...\n\n");
 
     printf("Test 5: Delete list...");
     getchar();
     dll_delete(l);
     printf("Sucessfully free'd %zu strings\n\n", len);
-}
-
-/**
- * iteratestringList:
- *      Boolean test to check if data exists in node, used in foreach operation.
- */
-bool iterateStringList(void *data)
-{
-    if (data) {
-        printf("Found string value: %s\n", *(char **)data);
-        return true;
-    }
-    return false;
-}
-
-/**
- * freeString:
- *      Free string data.
- */
-void freeString(void *data)
-{
-    if (data)
-        free(*(char **)data);
-}
-
-/**
- * compareInt:
- *      Compare two integers for equality.
- *      Result is LESS for a < b, EQUAL for a == b, GREATER for a > b
- */
-Result compareInt(const void *a, const void *b)
-{
-    const int ia = *(const int *)a;
-    const int ib = *(const int *)b;
-    return (ia > ib) - (ia < ib);
 }
