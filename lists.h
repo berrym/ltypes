@@ -105,11 +105,23 @@ void dll_swapNodeData(dLinkedList *, dLinkedListNode *, dLinkedListNode *);
 void dll_selectionSort(dLinkedList *, nodeComparator);
 dLinkedList *dll_split(dLinkedList *);
 
-// Forward declaration of some common helper functions
-bool iterFuncIntListFind(void *, bool);
-void printReverseIntLinkedList(linkedListNode *);
-bool iterFuncStringListFind(void *, bool);
+// Common iterator functions
+bool iterFunc_Int_exists(void *, bool);
+bool iterFunc_ConstInt_exists(void *, bool);
+bool iterFunc_ShortInt_exists(void *, bool);
+bool iterFunc_ConstShortInt_exists(void *, bool);
+bool iterFunc_UShortInt_exists(void *, bool);
+bool iterFunc_ConstUShortInt_exists(void *, bool);
+bool iterFunc_Float_exists(void*, bool);
+bool iterFunc_ConstFloat_exists(void *, bool);
+bool iterFunc_Double_exists(void *, bool);
+bool iterFunc_ConstDouble_exists(void *, bool);
+bool iterFunc_SizeT_exists(void *, bool);
+bool iterFunc_String_exists(void *, bool);
+
+// Other useful operations
 void freeString(void *);
+void printReverseIntLinkedList(linkedListNode *);
 Result compareInt(const void *, const void *);
 
 #endif

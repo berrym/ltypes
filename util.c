@@ -3,24 +3,165 @@
 #include "lists.h"
 
 /**
- * iterFuncIntListFind:
+ * iterFunc_Int_exists:
  *      Boolean test of data existence, used in foreach operation.
  */
-bool iterFuncIntListFind(void *data, bool out)
+bool iterFunc_Int_exists(void *data, bool out)
 {
     if (data) {
         if (out)
-            printf("Found value: %d\n", CastInt data);
+            printf("Found int value: %d\n", CastInt data);
         return true;
     }
     return false;
 }
 
 /**
- * iterFuncStringListFind:
+ * iter_FuncConstInt_exists:
  *      Boolean test of data existence, used in foreach operation.
  */
-bool iterFuncStringListFind(void *data, bool out)
+bool iterFunc_ConstInt_exists(void *data, bool out)
+{
+    if (data) {
+        if (out)
+            printf("Found const int value: %d\n", CastConstInt data);
+        return true;
+    }
+    return false;
+}
+
+/**
+ * iterFunc_ShortInt_exists:
+ *      Boolean test of data existence, used in foreach operation.
+ */
+bool iterFuncShortIntexists(void *data, bool out)
+{
+    if (data) {
+        if (out)
+            printf("Found short int value: %d\n", CastShortInt data);
+        return true;
+    }
+    return false;
+}
+
+/**
+ * iterFuncConstShortIntexists:
+ *      Boolean test of data existence, used in foreach operation.
+ */
+bool iterFunc_ConstShortInt_exists(void *data, bool out)
+{
+    if (data) {
+        if (out)
+            printf("Found int value: %d\n", CastConstShortInt data);
+        return true;
+    }
+    return false;
+}
+
+/**
+ * iterFunc_UShortInt_exists:
+ *      Boolean test of data existence, used in foreach operation.
+ */
+bool iterFunc_UShortInt_exists(void *data, bool out)
+{
+    if (data) {
+        if (out)
+            printf("Found int value: %u\n", CastUShortInt data);
+        return true;
+    }
+    return false;
+}
+
+/**
+ * iterFunc_ConstUShortInt_exists:
+ *      Boolean test of data existence, used in foreach operation.
+ */
+bool iterFunc_ConstUShort_exists(void *data, bool out)
+{
+    if (data) {
+        if (out)
+            printf("Found int value: %u\n", CastConstUShortInt data);
+        return true;
+    }
+    return false;
+}
+
+/**
+ * iterFunc_Float_exists:
+ *      Boolean test of data existence, used in foreach operation.
+ */
+bool iterFunc_Float_exists(void *data, bool out)
+{
+    if (data) {
+        if (out)
+            printf("Found float value: %f\n", CastFloat data);
+        return true;
+    }
+    return false;
+}
+
+/**
+ * iterFunc_ConstFloat_exists:
+ *      Boolean test of data existence, used in foreach operation.
+ */
+bool iterFunc_ConstFloat_exists(void *data, bool out)
+{
+    if (data) {
+        if (out)
+            printf("Found float value: %f\n", CastConstFloat data);
+        return true;
+    }
+    return false;
+}
+
+/**
+ * iterFunc_Double_exists:
+ *      Boolean test of data existence, used in foreach operation.
+ */
+bool iterFunc_Double_exists(void *data, bool out)
+{
+    if (data) {
+        if (out)
+            printf("Found float value: %f\n", CastDouble data);
+        return true;
+    }
+    return false;
+}
+
+/**
+ * iterFunc_ConstDouble_exists:
+ *      Boolean test of data existence, used in foreach operation.
+ */
+bool iterFunc_ConstDouble_exists(void *data, bool out)
+{
+    if (data) {
+        if (out)
+            printf("Found float value: %f\n", CastConstDouble data);
+        return true;
+    }
+    return false;
+}
+
+/**
+ * iterFunc_SizeT_exists:
+ *      Boolean test of data existence, used in foreach operation.
+ */
+bool iterFunc_SizeT_exists(void *data, bool out)
+{
+    if (data) {
+        if (out)
+            printf("Found int value: %luz\n", CastSizeT data);
+        return true;
+    }
+    return false;
+}
+
+
+/**
+ * iterFunc_String_exists:
+ *      Boolean test of data existence, used in foreach operation.
+ */
+bool iterFunc_String_exists(void *data, bool out)
 {
     if (data) {
         if (out)
@@ -28,6 +169,19 @@ bool iterFuncStringListFind(void *data, bool out)
         return true;
     }
     return false;
+}
+
+/**
+ * iterFunc_ConstString_exists:
+ *      Boolean test of data existence, used in foreach operation.
+ */
+bool iterFunc_ConstString_exists(void *data, bool out)
+{
+    if (data) {
+        if (out)
+            printf("Found string value: %s\n", CastConstString data);
+        return true;
+    }
 }
 
 /**
@@ -51,7 +205,6 @@ Result compareInt(const void *a, const void *b)
     const int ib = CastConstInt b;
     return (ia > ib) - (ia < ib);
 }
-
 
 /**
  * printReverseIntLinkedList:
