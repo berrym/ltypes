@@ -4,7 +4,7 @@
 
 /**
  * iterFuncIntListFind:
- *      Boolean check of data existence, used in foreach operation.
+ *      Boolean test of data existence, used in foreach operation.
  */
 bool iterFuncIntListFind(void *data, bool out)
 {
@@ -18,7 +18,7 @@ bool iterFuncIntListFind(void *data, bool out)
 
 /**
  * iterFuncStringListFind:
- *      Boolean test to check if data exists in node, used in foreach operation.
+ *      Boolean test of data existence, used in foreach operation.
  */
 bool iterFuncStringListFind(void *data, bool out)
 {
