@@ -210,6 +210,7 @@ bool iterFunc_ConstString_exists(void *data, bool out)
             printf("Found string value: %s\n", CastConstString data);
         return true;
     }
+    return false;
 }
 
 /**
