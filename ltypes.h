@@ -7,6 +7,8 @@
 // Type cast definitions, for converting from void*
 #define CastInt *(int *)
 #define CastConstInt *(const int *)
+#define CastUInt *(unsigned int *)
+#define CastConstUInt *(const unsigned int *)
 #define CastShortInt *(short int *)
 #define CastConstShortInt *(const short int *)
 #define CastUShortInt *(unsigned short int *)
