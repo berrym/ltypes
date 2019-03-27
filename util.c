@@ -31,10 +31,38 @@ bool iterFunc_ConstInt_exists(void *data, bool out)
 }
 
 /**
+ * iterFunc_UInt_exists:
+ *      Boolean test of data existence, used in foreach operation.
+ */
+bool iterFunc_UInt_exists(void *data, bool out)
+{
+    if (data) {
+        if (out)
+            printf("Found unsigned int value: %u\n", CastUInt data);
+        return true;
+    }
+    return false;
+}
+
+/**
+ * iterFunc_ConstUInt_exists:
+ *      Boolean test of data existence, used in foreach operation.
+ */
+bool iterFunc_ConstUInt_exists(void *data, bool out)
+{
+    if (data) {
+        if (out)
+            printf("Found const unsigned int value: %u\n", CastConstUInt data);
+        return true;
+    }
+    return false;
+}
+
+/**
  * iterFunc_ShortInt_exists:
  *      Boolean test of data existence, used in foreach operation.
  */
-bool iterFuncShortIntexists(void *data, bool out)
+bool iterFunc_ShortInt_exists(void *data, bool out)
 {
     if (data) {
         if (out)

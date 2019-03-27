@@ -108,6 +108,8 @@ dLinkedList *dll_split(dLinkedList *);
 // Common iterator functions
 bool iterFunc_Int_exists(void *, bool);
 bool iterFunc_ConstInt_exists(void *, bool);
+bool iterFunc_UInt_exists(void *, bool);
+bool iterFunc_ConstUInt_exists(void *, bool);
 bool iterFunc_ShortInt_exists(void *, bool);
 bool iterFunc_ConstShortInt_exists(void *, bool);
 bool iterFunc_UShortInt_exists(void *, bool);
