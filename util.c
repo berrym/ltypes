@@ -17,7 +17,7 @@ bool iterFunc_Int_exists(void *data, bool out)
 }
 
 /**
- * iter_FuncConstInt_exists:
+ * iterFunc_ConstInt_exists:
  *      Boolean test of data existence, used in foreach operation.
  */
 bool iterFunc_ConstInt_exists(void *data, bool out)
@@ -45,7 +45,7 @@ bool iterFuncShortIntexists(void *data, bool out)
 }
 
 /**
- * iterFuncConstShortIntexists:
+ * iterFunc_ConstShortInt_exists:
  *      Boolean test of data existence, used in foreach operation.
  */
 bool iterFunc_ConstShortInt_exists(void *data, bool out)
