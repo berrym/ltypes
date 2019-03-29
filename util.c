@@ -178,7 +178,7 @@ bool iterFunc_SizeT_exists(void *data, bool out)
 {
     if (data) {
         if (out)
-            printf("Found int value: %luz\n", CastSizeT data);
+            printf("Found int value: %lu\n", CastSizeT data);
         return true;
     }
     return false;
