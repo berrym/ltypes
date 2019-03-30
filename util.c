@@ -115,6 +115,62 @@ bool iterFunc_ConstUShort_exists(void *data, bool out)
 }
 
 /**
+ * iterFunc_LongInt_exists:
+ *      Boolean test of data existence, used in foreach operation.
+ */
+bool iterFunc_LongInt_exists(void *data, bool out)
+{
+    if (data) {
+        if (out)
+            printf("Found int value: %ld\n", DRefCastLongInt data);
+        return true;
+    }
+    return false;
+}
+
+/**
+ * iterFunc_ConstLongInt_exists:
+ *      Boolean test of data existence, used in foreach operation.
+ */
+bool iterFunc_ConstLongInt_exists(void *data, bool out)
+{
+    if (data) {
+        if (out)
+            printf("Found int value: %ld\n", DRefCastConstLongInt data);
+        return true;
+    }
+    return false;
+}
+
+/**
+ * iterFunc_ULongInt_exists:
+ *      Boolean test of data existence, used in foreach operation.
+ */
+bool iterFunc_ULongInt_exists(void *data, bool out)
+{
+    if (data) {
+        if (out)
+            printf("Found int value: %lu\n", DRefCastULongInt data);
+        return true;
+    }
+    return false;
+}
+
+/**
+ * iterFunc_ConstULongInt_exists:
+ *      Boolean test of data existence, used in foreach operation.
+ */
+bool iterFunc_ConstULongInt_exists(void *data, bool out)
+{
+    if (data) {
+        if (out)
+            printf("Found int value: %lu\n", DRefCastConstULongInt data);
+        return true;
+    }
+    return false;
+}
+
+/**
  * iterFunc_Float_exists:
  *      Boolean test of data existence, used in foreach operation.
  */
