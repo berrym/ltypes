@@ -10,7 +10,7 @@ bool iterFunc_Int_exists(void *data, bool out)
 {
     if (data) {
         if (out)
-            printf("Found int value: %d\n", CastInt data);
+            printf("Found int value: %d\n", DRefCastInt data);
         return true;
     }
     return false;
@@ -24,7 +24,7 @@ bool iterFunc_ConstInt_exists(void *data, bool out)
 {
     if (data) {
         if (out)
-            printf("Found const int value: %d\n", CastConstInt data);
+            printf("Found const int value: %d\n", DRefCastConstInt data);
         return true;
     }
     return false;
@@ -38,7 +38,7 @@ bool iterFunc_UInt_exists(void *data, bool out)
 {
     if (data) {
         if (out)
-            printf("Found unsigned int value: %u\n", CastUInt data);
+            printf("Found unsigned int value: %u\n", DRefCastUInt data);
         return true;
     }
     return false;
@@ -52,7 +52,7 @@ bool iterFunc_ConstUInt_exists(void *data, bool out)
 {
     if (data) {
         if (out)
-            printf("Found const unsigned int value: %u\n", CastConstUInt data);
+            printf("Found const unsigned int value: %u\n", DRefCastConstUInt data);
         return true;
     }
     return false;
@@ -66,7 +66,7 @@ bool iterFunc_ShortInt_exists(void *data, bool out)
 {
     if (data) {
         if (out)
-            printf("Found short int value: %d\n", CastShortInt data);
+            printf("Found short int value: %d\n", DRefCastShortInt data);
         return true;
     }
     return false;
@@ -80,7 +80,7 @@ bool iterFunc_ConstShortInt_exists(void *data, bool out)
 {
     if (data) {
         if (out)
-            printf("Found int value: %d\n", CastConstShortInt data);
+            printf("Found int value: %d\n", DRefCastConstShortInt data);
         return true;
     }
     return false;
@@ -94,7 +94,7 @@ bool iterFunc_UShortInt_exists(void *data, bool out)
 {
     if (data) {
         if (out)
-            printf("Found int value: %u\n", CastUShortInt data);
+            printf("Found int value: %u\n", DRefCastUShortInt data);
         return true;
     }
     return false;
@@ -108,7 +108,7 @@ bool iterFunc_ConstUShort_exists(void *data, bool out)
 {
     if (data) {
         if (out)
-            printf("Found int value: %u\n", CastConstUShortInt data);
+            printf("Found int value: %u\n", DRefCastConstUShortInt data);
         return true;
     }
     return false;
@@ -122,7 +122,7 @@ bool iterFunc_Float_exists(void *data, bool out)
 {
     if (data) {
         if (out)
-            printf("Found float value: %f\n", CastFloat data);
+            printf("Found float value: %f\n", DRefCastFloat data);
         return true;
     }
     return false;
@@ -136,7 +136,7 @@ bool iterFunc_ConstFloat_exists(void *data, bool out)
 {
     if (data) {
         if (out)
-            printf("Found float value: %f\n", CastConstFloat data);
+            printf("Found float value: %f\n", DRefCastConstFloat data);
         return true;
     }
     return false;
@@ -150,7 +150,7 @@ bool iterFunc_Double_exists(void *data, bool out)
 {
     if (data) {
         if (out)
-            printf("Found float value: %f\n", CastDouble data);
+            printf("Found float value: %f\n", DRefCastDouble data);
         return true;
     }
     return false;
@@ -164,7 +164,7 @@ bool iterFunc_ConstDouble_exists(void *data, bool out)
 {
     if (data) {
         if (out)
-            printf("Found float value: %f\n", CastConstDouble data);
+            printf("Found float value: %f\n", DRefCastConstDouble data);
         return true;
     }
     return false;
@@ -178,7 +178,7 @@ bool iterFunc_SizeT_exists(void *data, bool out)
 {
     if (data) {
         if (out)
-            printf("Found int value: %lu\n", CastSizeT data);
+            printf("Found int value: %zu\n", DRefCastSizeT data);
         return true;
     }
     return false;
@@ -193,7 +193,7 @@ bool iterFunc_String_exists(void *data, bool out)
 {
     if (data) {
         if (out)
-            printf("Found string value: %s\n", CastString data);
+            printf("Found string value: %s\n", DRefCastString data);
         return true;
     }
     return false;
@@ -207,7 +207,7 @@ bool iterFunc_ConstString_exists(void *data, bool out)
 {
     if (data) {
         if (out)
-            printf("Found string value: %s\n", CastConstString data);
+            printf("Found string value: %s\n", DRefCastConstString data);
         return true;
     }
     return false;
@@ -220,7 +220,7 @@ bool iterFunc_ConstString_exists(void *data, bool out)
 void freeString(void *data)
 {
     if (data)
-        free(CastString data);
+        free(DRefCastString data);
 }
 
 /**
@@ -230,8 +230,8 @@ void freeString(void *data)
  */
 Result compareInt(const void *a, const void *b)
 {
-    const int ia = CastConstInt a;
-    const int ib = CastConstInt b;
+    const int ia = DRefCastConstInt a;
+    const int ib = DRefCastConstInt b;
     return (ia > ib) - (ia < ib);
 }
 
@@ -244,5 +244,5 @@ void printReverseIntLinkedList(linkedListNode *head)
     if (!head)
         return;
     printReverseIntLinkedList(head->next);
-    printf(" %d ", CastInt head->data);
+    printf(" %d ", DRefCastInt head->data);
 }
