@@ -62,7 +62,7 @@ void intLinkedList()
     printf("Test 3: Get value at index 9...");
     getchar();
     linkedListNode *temp = ll_getNodeAt(l, 9);
-    printf("Value at index 9: %d\nDone...\n\n", DRefCastInt temp->data);
+    printf("Value at index 9: %d\nDone...\n\n", *(int *)temp->data);
 
     printf("Test 4: Search for value (7) in the list...");
     getchar();
@@ -158,7 +158,7 @@ void intDLinkedList()
 
     printf("Test 3: Get value at index 9...");
     dLinkedListNode *temp = dll_getNodeAt(l, 9);
-    printf("Value at index 9: %d\nDone...\n\n", DRefCastInt temp->data);
+    printf("Value at index 9: %d\nDone...\n\n", *(int *)temp->data);
 
     printf("Test 4: Search for value (7) in list...");
     bool result;
@@ -203,7 +203,7 @@ void intDLinkedList()
     printf("[");
     dLinkedListNode *curr = dll_last(l);
     while (curr) {
-        printf(" %d ", DRefCastInt curr->data);
+        printf(" %d ", *(int *) curr->data);
         curr = curr->prev;
     }
     printf("]\ndone....\n\n");

@@ -4,27 +4,6 @@
 #include <stddef.h>             // for type size_t
 #include <stdbool.h>            // for type bool
 
-// Convenience type casts
-#define DRefCastInt *(int *)
-#define DRefCastConstInt *(const int *)
-#define DRefCastUInt *(unsigned int *)
-#define DRefCastConstUInt *(const unsigned int *)
-#define DRefCastShortInt *(short int *)
-#define DRefCastConstShortInt *(const short int *)
-#define DRefCastUShortInt *(unsigned short int *)
-#define DRefCastConstUShortInt *(const unsigned short int *)
-#define DRefCastLongInt *(long int *)
-#define DRefCastConstLongInt *(const long int *)
-#define DRefCastULongInt *(unsigned long int *)
-#define DRefCastConstULongInt *(const unsigned long int *)
-#define DRefCastFloat *(float *)
-#define DRefCastConstFloat *(const float *)
-#define DRefCastDouble *(double *)
-#define DRefCastConstDouble *(const double *)
-#define DRefCastSizeT *(size_t *)
-#define DRefCastString *(char **)
-#define DRefCastConstString *(const char **)
-
 // Result type used for nodeComparator functions
 typedef enum Result {
     LESS = -1,
