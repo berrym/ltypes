@@ -1,16 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "lists.h"
 
 /**
  * iterFunc_Int_exists:
  *      Boolean test of data existence, used in foreach operation.
  */
-bool iterFunc_Int_exists(void *data, bool out)
+bool iterFunc_Int_exists(void *data, displayFunction display)
 {
     if (data) {
-        if (out)
-            printf("Found int value: %d\n", *(int *)data);
+        if (display)
+            display(data);
         return true;
     }
     return false;
@@ -20,11 +21,11 @@ bool iterFunc_Int_exists(void *data, bool out)
  * iterFunc_String_exists:
  *      Boolean test of data existence, used in foreach operation.
  */
-bool iterFunc_String_exists(void *data, bool out)
+bool iterFunc_String_exists(void *data, displayFunction display)
 {
     if (data) {
-        if (out)
-            printf("Found string value: %s\n", *(char **)data);
+        if (display)
+            display(data);
         return true;
     }
     return false;
@@ -43,13 +44,47 @@ void freeString(void *data)
 /**
  * compareInt:
  *      Compare two integers for equality.
- *      Result is LESS for a < b, EQUAL for a == b, GREATER for a > b
+ *      result is LESS for a < b, EQUAL for a == b, GREATER for a > b
  */
-Result compareInt(const void *a, const void *b)
+result compareInt(const void *a, const void *b)
 {
     const int ia = *(const int *)a;
     const int ib = *(const int *)b;
     return (ia > ib) - (ia < ib);
+}
+
+/**
+ * compareStr:
+ *      Compare two strings for equality.
+ *      Result is LESS for a < b, EQUAL for a == b, GREATER for a > b
+ */
+result compareStr(const void *a, const void *b)
+{
+    const char *ca = *(const char **)a;
+    const char *cb = *(const char **)b;
+
+    if (strcmp(ca, cb) < 0) return LESS;
+    else if (strcmp(ca, cb) > 0) return GREATER;
+
+    return EQUAL;
+}
+
+/**
+ * printStr:
+ *      Display function to print a string.
+ */
+void printInt(void *data)
+{
+    printf("Found value: %d\n", *(int *)data);
+}
+
+/**
+ * printStr:
+ *      Display function to print a string.
+ */
+void printStr(void *data)
+{
+    printf("Found value: %s\n", *(char **)data);
 }
 
 /**

@@ -78,12 +78,12 @@ void intLinkedList()
     printf("Test 5: Delete value 7...");
     getchar();
     ll_deleteNode(l, &data, compareInt);
-    ll_foreach(l, iterFunc_Int_exists, true);
+    ll_foreach(l, iterFunc_Int_exists, printInt);
     printf("Done\n\n");
 
     printf("Test 6: Iterate over list and print values found...");
     getchar();
-    ll_foreach(l, iterFunc_Int_exists, true);
+    ll_foreach(l, iterFunc_Int_exists, printInt);
     printf("Done...\n\n");
     
     printf("Test 7: Print list in reverse order without swapping nodes...");
@@ -96,28 +96,28 @@ void intLinkedList()
     printf("Test 8: Swap head and tail data...");
     getchar();
     ll_swapNodeData(l, ll_first(l), ll_last(l));
-    ll_foreach(l, iterFunc_Int_exists, true);
+    ll_foreach(l, iterFunc_Int_exists, printInt);
     printf("Done...\n\n");
 
     printf("Test 9: Reversing list by swapping nodes...");
     getchar();
     ll_reverse(l);
-    ll_foreach(l, iterFunc_Int_exists, true);
+    ll_foreach(l, iterFunc_Int_exists, printInt);
     printf("Done...\n\n");
 
     printf("Test 10: Sort list by swapping node data...");
     getchar();
     ll_selectionSort(l, compareInt);
-    ll_foreach(l, iterFunc_Int_exists, true);
+    ll_foreach(l, iterFunc_Int_exists, printInt);
     printf("Done...\n\n");
 
     printf("Test 11: Split the list in two...");
     getchar();
     linkedList *b = ll_split(l);
     printf("Second half:\n");
-    ll_foreach(b, iterFunc_Int_exists, true);
+    ll_foreach(b, iterFunc_Int_exists, printInt);
     printf("First half:\n");
-    ll_foreach(l, iterFunc_Int_exists, true);
+    ll_foreach(l, iterFunc_Int_exists, printInt);
     printf("Done...\n\n");
 
     printf("Test 12: Delete the lists...");
@@ -173,7 +173,7 @@ void intDLinkedList()
     printf("Test 5: Delete value 7...");
     getchar();
     dll_deleteNode(l, &data, compareInt);
-    dll_foreach(l, iterFunc_Int_exists, true);
+    dll_foreach(l, iterFunc_Int_exists, printInt);
     printf("Done\n\n");
 
     printf("Test 6: Insert a number (11) after the begining of the list...");
@@ -195,7 +195,7 @@ void intDLinkedList()
 
     printf("Test 9: Iterate over list and print values found...");
     getchar();
-    dll_foreach(l, iterFunc_Int_exists, true);
+    dll_foreach(l, iterFunc_Int_exists, printInt);
     printf("Done...\n\n");
 
     printf("Test 10: Print list in reverse order without swapping node's...");
@@ -211,22 +211,22 @@ void intDLinkedList()
     printf("Test 11: Reverse the list by swapping node's...");
     getchar();
     dll_reverse(l);
-    dll_foreach(l, iterFunc_Int_exists, true);
+    dll_foreach(l, iterFunc_Int_exists, printInt);
     printf("Done...\n\n");
 
     printf("Test 12: Sort the list by swapping node data...");
     getchar();
     dll_selectionSort(l, compareInt);
-    dll_foreach(l, iterFunc_Int_exists, true);
+    dll_foreach(l, iterFunc_Int_exists, printInt);
     printf("Done...\n\n");
 
     printf("Test 13: Split the list in two...");
     getchar();
     dLinkedList *b = dll_split(l);
     printf("Second half:\n");
-    dll_foreach(b, iterFunc_Int_exists, true);
+    dll_foreach(b, iterFunc_Int_exists, printInt);
     printf("First half:\n");
-    dll_foreach(l, iterFunc_Int_exists, true);
+    dll_foreach(l, iterFunc_Int_exists, printInt);
     printf("Done...\n\n");
 
     printf("Test 14: Delete the lists...");
@@ -279,7 +279,7 @@ void stringLinkedList()
 
     printf("Test 3: Iterate over list and print values found...");
     getchar();
-    ll_foreach(l, iterFunc_String_exists, true);
+    ll_foreach(l, iterFunc_String_exists, printStr);
     printf("Done...\n\n");
 
     printf("Test 4: Swap head and tail data of list...");
@@ -289,13 +289,13 @@ void stringLinkedList()
 
     printf("Test 5: Iterate over list and print values found...");
     getchar();
-    ll_foreach(l, iterFunc_String_exists, true);
+    ll_foreach(l, iterFunc_String_exists, printStr);
     printf("Done...\n\n");
 
     printf("Test 6: Reverse list by swapping nodes...");
     getchar();
     ll_reverse(l);
-    ll_foreach(l, iterFunc_String_exists, true);
+    ll_foreach(l, iterFunc_String_exists, printStr);
     printf("Done...\n\n");
 
     printf("Test 7: Delete list...");
@@ -344,13 +344,13 @@ void stringDLinkedList()
 
     printf("Test 3: Iterate over list and print values found...");
     getchar();
-    dll_foreach(l, iterFunc_String_exists, true);
+    dll_foreach(l, iterFunc_String_exists, printStr);
     printf("Done...\n\n");
 
     printf("Test 4: Reverse order of list by swapping nodes...");
     getchar();
     dll_reverse(l);
-    dll_foreach(l, iterFunc_String_exists, true);
+    dll_foreach(l, iterFunc_String_exists, printStr);
     printf("Done...\n\n");
 
     printf("Test 5: Delete list...");
