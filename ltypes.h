@@ -11,8 +11,8 @@ typedef enum result {
     GREATER = 1
 } result;
 
-// Forward declarations of operations common to list/tree types
-typedef void (*displayFunction)(void *);
+// Forward defintions of functions common to list/tree types
+typedef void (*displayFunction)(const void *);
 typedef void (*freeFunction)(void *);
 typedef bool (*listIterator)(void *, displayFunction);
 typedef result (*nodeComparator)(const void *, const void *);

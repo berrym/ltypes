@@ -73,7 +73,7 @@ result compareStr(const void *a, const void *b)
  * printStr:
  *      Display function to print a string.
  */
-void printInt(void *data)
+void printInt(const void *data)
 {
     printf("Found value: %d\n", *(int *)data);
 }
@@ -82,7 +82,7 @@ void printInt(void *data)
  * printStr:
  *      Display function to print a string.
  */
-void printStr(void *data)
+void printStr(const void *data)
 {
     printf("Found value: %s\n", *(char **)data);
 }

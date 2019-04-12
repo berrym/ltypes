@@ -114,7 +114,7 @@ void freeString(void *);
 void printReverseIntLinkedList(linkedListNode *);
 result compareInt(const void *, const void *);
 result comapareStr(const void *, const void *);
-void printInt(void *);
-void printStr(void *);
+void printInt(const void *);
+void printStr(const void *);
 
 #endif
