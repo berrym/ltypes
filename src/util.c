@@ -4,30 +4,17 @@
 #include "lists.h"
 
 /**
- * iterFunc_Int_exists:
+ * iterFunc_exists:
  *      Boolean test of data existence, used in foreach operation.
  */
-bool iterFunc_Int_exists(void *data, displayFunction display)
+bool iterFunc_exists(void *data, displayFunction display)
 {
     if (data) {
-        if (display)
+        if (display) 
             display(data);
         return true;
     }
-    return false;
-}
 
-/**
- * iterFunc_String_exists:
- *      Boolean test of data existence, used in foreach operation.
- */
-bool iterFunc_String_exists(void *data, displayFunction display)
-{
-    if (data) {
-        if (display)
-            display(data);
-        return true;
-    }
     return false;
 }
 
@@ -37,8 +24,7 @@ bool iterFunc_String_exists(void *data, displayFunction display)
  */
 void freeString(void *data)
 {
-    if (data)
-        free(*(char **)data);
+    free(*(char **)data);
 }
 
 /**

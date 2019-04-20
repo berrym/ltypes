@@ -106,8 +106,7 @@ void dll_selectionSort(dLinkedList *, nodeComparator);
 dLinkedList *dll_split(dLinkedList *);
 
 // Common iterator functions
-bool iterFunc_Int_exists(void *, displayFunction);
-bool iterFunc_String_exists(void *, displayFunction);
+bool iterFunc_exists(void *, displayFunction);
 
 // Other useful operations
 void freeString(void *);

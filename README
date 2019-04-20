@@ -2,7 +2,13 @@ This is a generic imlpentation of singly and doubly linked lists in compliance
 with C99 standards (probably).
 
 The idea behind these library functions is that lists of different data types
-are implemented only once by using void functions and pointers instead of
+are implemented only once by using void functions and refernce parameters instead of
 hard coding the type.
 
 DISCLAIMER: This is CS-101.  For fun!
+
+
+BUILDING:
+
+meson build
+ninja -C build
