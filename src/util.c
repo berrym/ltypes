@@ -56,8 +56,8 @@ result compareStr(const void *a, const void *b)
 }
 
 /**
- * printStr:
- *      Display function to print a string.
+ * printInt:
+ *      Display function to print an integer.
  */
 void printInt(const void *data)
 {
