@@ -75,7 +75,7 @@ void printStr(const void *data)
 
 /**
  * printReverseIntLinkedList:
- *      Print a linked list in reverse order using reursion.
+ *      Print a linked list in reverse order using post order recursion.
  */
 void printReverseIntLinkedList(linkedListNode *head)
 {
