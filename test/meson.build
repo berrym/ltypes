@@ -17,8 +17,13 @@ demo_4_exe = executable('demo_4_str_dll',
 			'demo_4_str_dll.c',
 			include_directories : inc,
 			link_with : libltypes)
+demo_5_exe = executable('demo_5_fibonacci_ll',
+            'demo_5_fibonacci_ll.c',
+            include_directories : inc,
+            link_with : libltypes)
 
 test('libltypes', demo_1_exe)
 test('libltypes', demo_2_exe)
 test('libltypes', demo_3_exe)
 test('libltypes', demo_4_exe)
+test('libltypes', demo_5_exe)

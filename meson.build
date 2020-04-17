@@ -1,6 +1,6 @@
 project('libltypes', 'c',
-        version : '0.1.0',
-        license : 'BSD 2-Clause')
+        version : '0.1.1',
+        license : 'MIT')
 
 inc = include_directories('include')
 
