@@ -22,6 +22,11 @@ demo_5_exe = executable('demo_5_fibonacci_ll',
             include_directories : inc,
             link_with : libltypes)
 
+demo_6_exe = executable('demo_6_primes_ll',
+            'demo_6_primes_ll.c',
+	    include_directories : inc,
+	    link_with : libltypes)
+
 test('libltypes', demo_1_exe)
 test('libltypes', demo_2_exe)
 test('libltypes', demo_3_exe)

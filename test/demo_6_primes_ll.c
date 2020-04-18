@@ -1,4 +1,4 @@
-/** demo_5_fibonacci_ll.c - Demo of an abritary length Fibonacci series.
+/** demo_6_primes_ll.c - Demo of an abritary amount of prime numbers.
 
 Copyright (c) 2020 Michael Berry
 
@@ -26,7 +26,7 @@ SOFTWARE.
 #include "lists.h"
 #include "errors.h"
 
-linkedList *fib_to_n(size_t);
+linkedList *primes_to_n(size_t);
 
 /**
  * main:
@@ -37,16 +37,16 @@ int main(int argc, char **argv)
     char *line = NULL;
     size_t len;
     ssize_t nread;
-    linkedList *fibs = NULL;
+    linkedList *primes = NULL;
 
-    printf("Fibonacci Sequence\nHow many numbers do you want? 30 is max: ");
+    printf("Prime numbers\nHow many numbers do you want? 30 is max: ");
     if ((nread = getline(&line, &len, stdin)) == -1)
         error_syscall("getline failed");
 
     size_t n = atoi(line);
 
     if (n <= 30) {
-        fibs = fib_to_n(n);
+        primes = primes_to_n(n);
     } else if (n > 30) {
         printf("Number to large.\n");
         exit(EXIT_SUCCESS);
@@ -55,30 +55,36 @@ int main(int argc, char **argv)
         exit(EXIT_FAILURE);
     }
 
-    ll_foreach(fibs, iterFunc_exists, printInt);
+    ll_foreach(primes, iterFunc_exists, printInt);
     printf("\n");
-    ll_delete(fibs);
+    ll_delete(primes);
 
     return 0;
 }
 
 /**
- * fib_to_n:
- *      Calculate the Fibonacci series up to limit.
+ * prime_to_n:
+ *      Calculate prime numbers up to limit.
  */
-linkedList *fib_to_n(size_t limit)
+linkedList *primes_to_n(size_t limit)
 {
-    linkedList *fibs = ll_create(sizeof(int), NULL);
-    int a, b, c;
-    a = 0;
-    b = 1;
-    for (size_t i = 2; i <= limit; i++) {
-        c = a + b;
-        a = b;
-        b = c;
-        ll_append(fibs, &b);
+    linkedList *primes = ll_create(sizeof(int), NULL);
+
+    size_t i = 3, c;
+
+    for (size_t count = 2 ; count <= limit ;  ) {
+        for (c = 2 ; c <= i - 1 ; c++)
+            if (i % c == 0 )
+                break;
+        
+        if (c == i) {
+            ll_append(primes, &i);
+            count++;
+        }
+
+        i++;
     }
 
-    return fibs;
+    return primes;
 }
 
