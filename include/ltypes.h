@@ -1,6 +1,4 @@
-/**
-
-ltypes.h
+/** ltypes.h - Declarations of linked list functions.
 
 Copyright (c) 2020 Michael Berry
 

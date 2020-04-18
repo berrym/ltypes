@@ -1,6 +1,4 @@
-/**
-
-errors.h
+/** errors.h - Error function defintions.
 
 Copyright (c) 2020 Michael Berry
 
