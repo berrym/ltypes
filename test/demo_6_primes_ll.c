@@ -26,7 +26,10 @@ SOFTWARE.
 #include "lists.h"
 #include "errors.h"
 
+void printDigit(const void *);
 linkedList *primes_to_n(size_t);
+
+#define MAXGEN 100
 
 /**
  * main:
@@ -39,27 +42,36 @@ int main(int argc, char **argv)
     ssize_t nread;
     linkedList *primes = NULL;
 
-    printf("Prime numbers\nHow many numbers do you want? 30 is max: ");
+    printf("Prime numbers\n");
+    printf("How many numbers do you want? %d is max: ", MAXGEN);
     if ((nread = getline(&line, &len, stdin)) == -1)
         error_syscall("getline failed");
 
     size_t n = atoi(line);
 
-    if (n <= 30) {
+    if (n <= MAXGEN) {
         primes = primes_to_n(n);
-    } else if (n > 30) {
-        printf("Number to large.\n");
+    } else if (n > MAXGEN) {
+        printf("Number too large.\n");
         exit(EXIT_SUCCESS);
     } else {
         printf("Unknown input.\n");
         exit(EXIT_FAILURE);
     }
 
-    ll_foreach(primes, iterFunc_exists, printInt);
+    ll_foreach(primes, iterFunc_exists, printDigit);
     printf("\n");
     ll_delete(primes);
 
     return 0;
+}
+/**
+ * printDigit:
+ *      Display function to print an integer.
+ */
+void printDigit(const void *data)
+{
+    printf("%d ", *(int *)data);
 }
 
 /**
@@ -70,19 +82,19 @@ linkedList *primes_to_n(size_t limit)
 {
     linkedList *primes = ll_create(sizeof(int), NULL);
 
-    size_t i = 3, c;
+    size_t p = 3, c;
 
     for (size_t count = 2 ; count <= limit ;  ) {
-        for (c = 2 ; c <= i - 1 ; c++)
-            if (i % c == 0 )
+        for (c = 2 ; c <= p - 1 ; c++)
+            if (p % c == 0 )
                 break;
         
-        if (c == i) {
-            ll_append(primes, &i);
+        if (c == p) {
+            ll_append(primes, &p);
             count++;
         }
 
-        i++;
+        p++;
     }
 
     return primes;
