@@ -1,6 +1,6 @@
 /** demo_6_primes_ll.c - Demo of an abritary amount of prime numbers.
 
-Copyright (c) 2020 Michael Berry
+Copyright (c) 2021 Michael Berry
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -23,11 +23,14 @@ SOFTWARE.
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
+#include <limits.h>
+#include <signal.h>
 #include "lists.h"
 #include "errors.h"
 
 void printDigit(const void *);
-linkedList *primes_to_n(size_t);
+linkedList *primesToLimit(size_t);
 
 #define MAXGEN 100
 
@@ -37,30 +40,43 @@ linkedList *primes_to_n(size_t);
  */
 int main(int argc, char **argv)
 {
-    char *line = NULL;
+    char *line = NULL, *endptr = NULL;
     size_t len;
     ssize_t nread;
     linkedList *primes = NULL;
+
+    // Set up some signal handlers
+    signal(SIGINT, sig_int);
+    signal(SIGSEGV, sig_seg);
 
     printf("Prime numbers\n");
     printf("How many numbers do you want? %d is max: ", MAXGEN);
     if ((nread = getline(&line, &len, stdin)) == -1)
         error_syscall("getline failed");
 
-    size_t n = atoi(line);
+    errno = 0;
+    size_t n = strtol(line, &endptr, 10);
+
+    if (errno != 0)
+        error_syscall("strtol failed");
+
+    if (line == endptr) {
+        fprintf(stderr, "No digitis were found\n\n");
+        exit(EXIT_FAILURE);
+    }
 
     if (n <= MAXGEN) {
-        primes = primes_to_n(n);
-    } else if (n > MAXGEN) {
+        primes = primesToLimit(n);
+    } else {
         printf("Number too large.\n");
         exit(EXIT_SUCCESS);
-    } else {
-        printf("Unknown input.\n");
-        exit(EXIT_FAILURE);
     }
 
     ll_foreach(primes, iterFunc_exists, printDigit);
     printf("\n");
+
+    ll_detectAndRemoveCycles(primes);
+
     ll_delete(primes);
 
     return 0;
@@ -75,10 +91,10 @@ void printDigit(const void *data)
 }
 
 /**
- * prime_to_n:
+ * primesToLimit:
  *      Calculate prime numbers up to limit.
  */
-linkedList *primes_to_n(size_t limit)
+linkedList *primesToLimit(size_t limit)
 {
     linkedList *primes = ll_create(sizeof(int), NULL);
 

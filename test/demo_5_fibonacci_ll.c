@@ -1,6 +1,6 @@
 /** demo_5_fibonacci_ll.c - Demo of an abritary length Fibonacci series.
 
-Copyright (c) 2020 Michael Berry
+Copyright (c) 2021 Michael Berry
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -23,10 +23,15 @@ SOFTWARE.
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
+#include <limits.h>
+#include <signal.h>
 #include "lists.h"
 #include "errors.h"
 
-linkedList *fib_to_n(size_t);
+linkedList *fibToLimit(size_t);
+
+#define MAXGEN 30
 
 /**
  * main:
@@ -34,39 +39,52 @@ linkedList *fib_to_n(size_t);
  */
 int main(int argc, char **argv)
 {
-    char *line = NULL;
+    char *line = NULL, *endptr = NULL;
     size_t len;
     ssize_t nread;
     linkedList *fibs = NULL;
 
-    printf("Fibonacci Sequence\nHow many numbers do you want? 30 is max: ");
+    // Set up some signal handlers
+    signal(SIGINT, sig_int);
+    signal(SIGSEGV, sig_seg);
+
+    printf("Fibonacci Sequence\nHow many numbers do you want? %d is max: ", MAXGEN);
     if ((nread = getline(&line, &len, stdin)) == -1)
         error_syscall("getline failed");
 
-    size_t n = atoi(line);
+    errno = 0;
+    size_t n = strtol(line, &endptr, 10);
 
-    if (n <= 30) {
-        fibs = fib_to_n(n);
-    } else if (n > 30) {
+    if (errno != 0)
+        error_syscall("strtol failed");
+
+    if (line == endptr) {
+        fprintf(stderr, "No digitis were found\n\n");
+        exit(EXIT_FAILURE);
+    }
+
+    if (n <= MAXGEN) {
+        fibs = fibToLimit(n);
+    } else {
         printf("Number to large.\n");
         exit(EXIT_SUCCESS);
-    } else {
-        printf("Unknown input.\n");
-        exit(EXIT_FAILURE);
     }
 
     ll_foreach(fibs, iterFunc_exists, printInt);
     printf("\n");
+
+    ll_detectAndRemoveCycles(fibs);
+
     ll_delete(fibs);
 
     return 0;
 }
 
 /**
- * fib_to_n:
+ * fibToLimit:
  *      Calculate the Fibonacci series up to limit.
  */
-linkedList *fib_to_n(size_t limit)
+linkedList *fibToLimit(size_t limit)
 {
     linkedList *fibs = ll_create(sizeof(int), NULL);
     int a, b, c;

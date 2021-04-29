@@ -1,6 +1,6 @@
 /** ltypes.h - Declarations of linked list functions.
 
-Copyright (c) 2020 Michael Berry
+Copyright (c) 2021 Michael Berry
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,6 @@ SOFTWARE.
 #ifndef LTYPES_H
 #define LTYPES_H
 
-#include <stddef.h>             // for type size_t
 #include <stdbool.h>            // for type bool
 
 // result type used for nodeComparator functions

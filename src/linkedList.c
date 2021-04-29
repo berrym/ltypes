@@ -1,6 +1,6 @@
 /** linkedList.c - Linked list implementation.
 
-Copyright (c) 2020 Michael Berry
+Copyright (c) 2021 Michael Berry
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -456,7 +456,7 @@ void ll_selectionSort(linkedList *l, nodeComparator cmp)
  */
 linkedList *ll_split(linkedList *a)
 {
-    if (a->logicalLength == 1)
+    if (a->logicalLength <= 1)
         return NULL;
 
     // Split the list in two
@@ -464,7 +464,6 @@ linkedList *ll_split(linkedList *a)
     while (fast->next && fast->next->next) {
         fast = fast->next->next;
         slow = slow->next;
-        a->logicalLength--;     // decrease original list length
     }
 
     // Create and initialize a new list with the second half of the original
@@ -472,13 +471,72 @@ linkedList *ll_split(linkedList *a)
     b->elementSize = a->elementSize;
     b->head = slow->next;
     slow->next = NULL;
-    size_t i;
+    size_t b_len;
     linkedListNode *it = b->head;
-    for (i = 0; it; i++) {
+    for (b_len = 0; it; b_len++) {
         b->tail = it;
         it = it->next;
     }
-    b->logicalLength = i;
+    b->logicalLength = b_len;
+    size_t a_len;
+
+    it = a->head;
+    for (a_len = 0; it; a_len++) {
+        it = it->next;
+    }
+    a->tail = it;
+    a->logicalLength = a_len;
 
     return b;                   // return the second half of the list
+}
+
+/**
+ * ll_hasCycle:
+ *        Detect a cycle/loop in a linked list.
+ */
+linkedListNode *ll_hasCycle(linkedList *l)
+{
+    linkedListNode *slow = l->head, *fast = l->head;
+
+    while (slow && fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+
+        if (slow == fast)
+            return slow;
+    }
+
+    return NULL;
+}
+
+/**
+ * ll_removeCycle:
+ *      Remove a cycle/loop in a linked list.
+ */
+void ll_removeCycle(linkedList *l, linkedListNode *cycle_node)
+{
+    linkedListNode *curr = l->head;
+
+    while (curr != cycle_node->next)
+        curr = curr->next;
+
+    curr->next = NULL;
+    l->tail = curr;
+}
+
+/**
+ * ll_detectAndRemoveCycles:
+ *      Detect and remove cycles/loops in a linked list.
+ */
+size_t ll_detectAndRemoveCycles(linkedList *l)
+{
+    size_t cycles = 0;
+    linkedListNode *cycle_node = NULL;
+
+    while ((cycle_node = ll_hasCycle(l))) {
+        cycles++;
+        ll_removeCycle(l, cycle_node);
+    }
+
+    return cycles;
 }

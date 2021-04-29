@@ -1,6 +1,6 @@
-/** demo_2_str_ll.c - Deom of list linked string operations.
+/** demo_2_str_ll.c - Demo of list linked string operations.
 
-Copyright (c) 2020 Michael Berry
+Copyright (c) 2021 Michael Berry
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

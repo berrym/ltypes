@@ -1,6 +1,6 @@
 /** demo_1_int_ll.c - Demo of linked list operations on ints.
 
-Copyright (c) 2020 Michael Berry
+Copyright (c) 2021 Michael Berry
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -129,7 +129,29 @@ void intLinkedList()
     ll_foreach(l, iterFunc_exists, printInt);
     printf("Done...\n\n");
 
-    printf("Test 12: Delete the lists...");
+    printf("Test 12a: Create a cycle/loop in first half of list...");
+    getchar();
+    l->head->next->next->next->next->next = l->head->next->next;
+    if (ll_hasCycle(l))
+        printf("Cycle detected...\n\n");
+
+    printf("Test 12b: Check/Repair list cycles...");
+    getchar();
+    size_t cycles = ll_detectAndRemoveCycles(l);
+    if (cycles) {
+        printf("%zu cycles detected, nodes fixed.\n\n", cycles);
+    } else {
+        printf("No cycle detected, list is clean.\n\n");
+    }
+
+    printf("Test 12c: Print lists after fixing cycle...");
+    getchar();
+    ll_foreach(l, iterFunc_exists, printInt);
+    printf("\n");
+    ll_foreach(b, iterFunc_exists, printInt);
+    printf("\n");
+
+    printf("Test 13: Delete the lists...");
     getchar();
     printf("Deleting first half of original list:\n");
     len = l->logicalLength;

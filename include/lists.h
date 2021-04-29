@@ -1,8 +1,6 @@
-/**
+/** lists.h - Decalarations of singly and doubly linked lists.
 
-lists.h
-
-Copyright (c) 2020 Michael Berry
+Copyright (c) 2021 Michael Berry
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -84,6 +82,9 @@ void ll_reverse(linkedList *);
 void ll_swapNodeData(linkedList *, linkedListNode *, linkedListNode *);
 void ll_selectionSort(linkedList *, nodeComparator);
 linkedList *ll_split(linkedList *);
+linkedListNode *ll_hasCycle(linkedList *);
+void ll_removeCycle(linkedList *, linkedListNode *);
+size_t ll_detectAndRemoveCycles(linkedList *);
 
 ///////////////////////////////////////////////////////////////////////////////
 // Doubly linked list
